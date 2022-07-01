@@ -15,6 +15,7 @@ import { allChatRooms } from "../core/api/Chat";
 import SocketProvider from "../core/provider";
 import { tokenRefresh } from "../core/api/Login";
 import { setCookie } from "../utils/cookie";
+import { SessionProvider } from "next-auth/react";
 
 function MyApp({
   my,
@@ -23,6 +24,7 @@ function MyApp({
   newToken,
   Component,
   pageProps,
+  // pageProps: { session, ...pageProps },
 }) {
   const [loading, setLoading] = useState(false);
   axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
@@ -65,13 +67,21 @@ function MyApp({
         <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0" />
         <meta property="og:title" content={"멘토릿지"} />
       </Head>
-      <SocketProvider
-        my={my}
-        uncheckedCnt={uncheckedCnt}
-        myChatRooms={myChatRooms}
-      >
-        <Component {...pageProps} />
-      </SocketProvider>
+      <SessionProvider session={pageProps?.session}>
+        <SocketProvider
+          my={my}
+          uncheckedCnt={uncheckedCnt}
+          myChatRooms={myChatRooms}
+        >
+          {/* {session !== undefined ? (
+          <SessionProvider session={session}>
+            <Component {...pageProps} />
+          </SessionProvider>
+        ) : ( */}
+          <Component {...pageProps} />
+          {/* )} */}
+        </SocketProvider>
+      </SessionProvider>
     </>
   );
 }
@@ -87,7 +97,7 @@ MyApp.getInitialProps = async (context) => {
   let newToken = "";
 
   if (context.ctx.req && context.ctx.req.headers.cookie) {
-    console.log("this is req===", context.ctx.req);
+    // console.log("this is req===", context.ctx.req);
     // if(context.ctx.req.statusCode==401 && message=="TOKENEXPIRED"){
     // tokenRefresh();
     // }
