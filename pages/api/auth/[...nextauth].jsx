@@ -2,6 +2,8 @@ import axios from "axios";
 import NextAuth from "next-auth";
 import CredentialProvider from "next-auth/providers/credentials";
 import myAxios from "../../../core/api/apiController";
+import GoogleProvider from "next-auth/providers/google";
+import NaverProvider from "next-auth/providers/naver";
 
 import { login } from "../../../core/api/Login";
 
@@ -165,6 +167,16 @@ const providers = [
         throw new Error(e);
       }
     },
+  }),
+
+  GoogleProvider({
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  }),
+
+  NaverProvider({
+    clientId: process.env.NAVER_CLIENT_ID,
+    clientSecret: process.env.NAVER_CLIENT_SECRET,
   }),
 ];
 
