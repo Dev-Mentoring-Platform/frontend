@@ -19,6 +19,7 @@ import Chip from "@mui/material/Chip";
 import { getLecture } from "../../core/api/Mentee";
 import { getUserRoleType } from "../../core/api/Login";
 import { useDebounceEffect } from "./board";
+import { getSession } from "next-auth/react";
 
 const filters = ["개발 분야", "수업 방식", "레벨"];
 const subjectsList = [
@@ -68,7 +69,7 @@ const Home = ({ classes, role, token, user }) => {
   const [difficultyType, setDifficultyType] = useState(["전체"]);
   const [isVisible, setIsVisible] = useState(false);
   const [value, setValue] = useState("1");
-
+  console.log("test", classes);
   // 필터 컨버팅
   const difficult = difficultyType.map((el) => converDifficulty(el));
   const group = isGroup.map((el) => convertGroup(el));
@@ -104,7 +105,7 @@ const Home = ({ classes, role, token, user }) => {
 
     if (Math.round(scrollTop + innerHeight) >= scrollHeight) {
       setPage(page + 1);
-      const showMore = await getLecture(token, {
+      const showMore = await getLecture({
         difficultyTypes: difficult,
         isGroup: group,
         page: page + 1,
@@ -134,7 +135,7 @@ const Home = ({ classes, role, token, user }) => {
       systemType: type,
       title: search,
     };
-    const newLecture = await getLecture(token, data);
+    const newLecture = await getLecture(data);
     setClassData(newLecture.content);
     setIsVisible(false);
     setPage(1);
@@ -150,25 +151,26 @@ const Home = ({ classes, role, token, user }) => {
     const data = {
       page: 1,
     };
-    const newLecture = await getLecture(token, data);
+    const newLecture = await getLecture(data);
     setClassData(newLecture.content);
   };
 
-  const debounceSearch = async () => {
-    const data = {
-      difficultyTypes: difficult,
-      isGroup: group,
-      page: 1,
-      subjects: subjects.filter((el) => el !== "전체"),
-      systemType: type,
-      title: search,
-    };
-    const newLecture = await getLecture(token, data);
-    setClassData(newLecture.content);
-    setPage(1);
-  };
+  // const debounceSearch = async () => {
+  //   const data = {
+  //     difficultyTypes: difficult,
+  //     isGroup: group,
+  //     page: 1,
+  //     subjects: subjects.filter((el) => el !== "전체"),
+  //     systemType: type,
+  //     title: search,
+  //   };
+  //   const newLecture = await getLecture(data);
+  //   console.log(newLecture);
+  //   setClassData(newLecture.content);
+  //   setPage(1);
+  // };
 
-  useDebounceEffect(() => debounceSearch(), 500, [search]);
+  // useDebounceEffect(() => debounceSearch(), 500, [search]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -379,16 +381,17 @@ const Home = ({ classes, role, token, user }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  const parsedCookies = cookie.parse(context.req.headers.cookie);
-  const role = parsedCookies.role;
-  const classes = await getLecture(parsedCookies.accessToken, { page: 1 });
-  const user = await getUserRoleType(parsedCookies.accessToken);
+  // const parsedCookies = cookie.parse(context.req.headers.cookie);
+  // const role = parsedCookies.role;
+  const classes = await getLecture({ page: 1 });
+  const user = await getUserRoleType();
+  const token = await getSession(context);
 
   return {
     props: {
       classes: classes,
-      role,
-      token: parsedCookies.accessToken,
+      role: "MENTEE",
+      token: token,
       user,
     },
   };

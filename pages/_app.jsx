@@ -15,14 +15,15 @@ import { allChatRooms } from "../core/api/Chat";
 import SocketProvider from "../core/provider";
 import { tokenRefresh } from "../core/api/Login";
 import { setCookie } from "../utils/cookie";
+import { getSession, SessionProvider } from "next-auth/react";
 
 function MyApp({
+  pageProps,
   my,
   uncheckedCnt,
   myChatRooms,
   newToken,
   Component,
-  pageProps,
 }) {
   const [loading, setLoading] = useState(false);
   axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
@@ -65,57 +66,65 @@ function MyApp({
         <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0" />
         <meta property="og:title" content={"멘토릿지"} />
       </Head>
-      <SocketProvider
-        my={my}
-        uncheckedCnt={uncheckedCnt}
-        myChatRooms={myChatRooms}
-      >
+      <SessionProvider session={pageProps.session}>
+        {/* <SocketProvider
+          my={my}
+          uncheckedCnt={uncheckedCnt}
+          myChatRooms={myChatRooms}
+        > */}
         <Component {...pageProps} />
-      </SocketProvider>
+        {/* </SocketProvider> */}
+      </SessionProvider>
     </>
   );
 }
 
-MyApp.getInitialProps = async (context) => {
-  let myTokens = {
-    access: "",
-    refresh: "",
-    role: "",
+export async function getServerSideProps(context) {
+  // let myTokens = {
+  //   access: "",
+  //   refresh: "",
+  //   role: "",
+  // };
+
+  // let parsed = "";
+  // let newToken = "";
+
+  // if (context.ctx.req && context.ctx.req.headers.cookie) {
+  //   // console.log("this is req===", context.ctx.req);
+  //   // if(context.ctx.req.statusCode==401 && message=="TOKENEXPIRED"){
+  //   // tokenRefresh();
+  //   // }
+  //   const parsedCookie = cookie.parse(context.ctx.req.headers.cookie);
+  //   parsed = parsedCookie;
+  //   myTokens.access = parsedCookie.accessToken;
+  //   myTokens.refresh = parsedCookie.refreshToken;
+  //   myTokens.role = parsedCookie.role;
+  //   const res = await tokenRefresh(
+  //     myTokens.access,
+  //     myTokens.refresh,
+  //     myTokens.role
+  //   );
+  //   newToken =
+  //     res?.headers["x-access-token"] !== undefined
+  //       ? res.headers["x-access-token"]
+  //       : myTokens.access;
+  // }
+
+  // axios.defaults.headers.common["Authorization"] = myTokens.access;
+  // axios.defaults.headers.common["Set-Cookie"] = JSON.stringify(myTokens);
+  // myAxios.defaults.headers.common["Authorization"] = myTokens.access;
+  // myAxios.defaults.headers.common["Set-Cookie"] = JSON.stringify(myTokens);
+  // console.log(context);
+  // const my = await getMyInfo();
+  // const uncheckedCnt = await getUncheckedNotificationCount();
+  // const myChatRooms = await allChatRooms();
+  return {
+    // my,
+    // uncheckedCnt,
+    // myChatRooms,
+    // newToken,
+    session: await getSession(context),
   };
-
-  let parsed = "";
-  let newToken = "";
-
-  if (context.ctx.req && context.ctx.req.headers.cookie) {
-    console.log("this is req===", context.ctx.req);
-    // if(context.ctx.req.statusCode==401 && message=="TOKENEXPIRED"){
-    // tokenRefresh();
-    // }
-    const parsedCookie = cookie.parse(context.ctx.req.headers.cookie);
-    parsed = parsedCookie;
-    myTokens.access = parsedCookie.accessToken;
-    myTokens.refresh = parsedCookie.refreshToken;
-    myTokens.role = parsedCookie.role;
-    const res = await tokenRefresh(
-      myTokens.access,
-      myTokens.refresh,
-      myTokens.role
-    );
-    newToken =
-      res?.headers["x-access-token"] !== undefined
-        ? res.headers["x-access-token"]
-        : myTokens.access;
-  }
-
-  axios.defaults.headers.common["Authorization"] = myTokens.access;
-  axios.defaults.headers.common["Set-Cookie"] = JSON.stringify(myTokens);
-  myAxios.defaults.headers.common["Authorization"] = myTokens.access;
-  myAxios.defaults.headers.common["Set-Cookie"] = JSON.stringify(myTokens);
-
-  const my = await getMyInfo(myTokens.access);
-  const uncheckedCnt = await getUncheckedNotificationCount(myTokens.access);
-  const myChatRooms = await allChatRooms();
-  return { my, uncheckedCnt, myChatRooms, newToken };
-};
+}
 
 export default wrapper.withRedux(MyApp);

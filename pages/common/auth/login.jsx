@@ -11,6 +11,7 @@ import { login, getUserRoleType } from "../../../core/api/Login";
 import { cookieForAuth, removeInfo } from "../../../utils/cookie";
 import { IC_Google, IC_Kakao, IC_Logo, IC_Naver } from "../../../icons";
 import { NameLogo } from "../../../components/common/icons/nameLogo";
+import { signIn, useSession } from "next-auth/react";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -22,16 +23,23 @@ const Login = () => {
   }, []);
 
   const checkAccount = async () => {
-    const res = await login(username, password);
-    if (res.status == 200) {
-      const role = await getUserRoleType(res.headers["x-access-token"]);
-      cookieForAuth(res, role);
-      if (role.loginType === "ROLE_MENTOR") {
-        router.push("/mentor/myclass/myClassList");
-      }
-      if (role.loginType === "ROLE_MENTEE") {
-        router.push("/mentee");
-      }
+    const response = await signIn("email-password-credential", {
+      username,
+      password,
+      redirect: false,
+    });
+    console.log("response=", response);
+
+    // const res = await login(username, password);
+    if (response.status == 200) {
+      // const role = await getUserRoleType(response.headers["x-access-token"]);
+      // cookieForAuth(res, role);
+      // if (role.loginType === "ROLE_MENTOR") {
+      // router.push("/mentor/myclass/myClassList");
+      // }
+      // if (role.loginType === "ROLE_MENTEE") {
+      router.push("/mentee");
+      // }
     } else {
       setError(true);
     }

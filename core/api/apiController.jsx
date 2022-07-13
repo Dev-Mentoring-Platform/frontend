@@ -1,4 +1,6 @@
 import axios from "axios";
+import { getSession } from "next-auth/react";
+
 let isRefresh = false;
 const myAxios = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -6,25 +8,29 @@ const myAxios = axios.create({
 
 myAxios.interceptors.request.use(
   async (config) => {
-    isRefresh =
-      config.headers.common["X-Access-Token"] === undefined ? false : true;
+    const defaultHeader = axios.defaults.headers.common.Authorization;
+    console.log("header=====", defaultHeader);
+    // if (session) {
+    //   config.headers.common["Authorization"] = defaultHeader;
+    // }
     return config;
   },
   (err) => {
+    console.log(err);
     return Promise.reject(err);
   }
 );
 
 myAxios.interceptors.response.use(
   async function (response) {
-    console.log("isRefresh====", isRefresh);
-    if (isRefresh) {
-      myAxios(config);
-      return response;
-    }
+    // if (isRefresh) {
+    //   myAxios(config);
+    //   return response;
+    // }
     return response;
   },
   async function (error) {
+    console.log(error.response);
     return error.response;
   }
 );
