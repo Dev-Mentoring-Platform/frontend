@@ -12,7 +12,7 @@ const MenteeReview = ({ data, onClick }) => {
     <section className={styles.menteeReviewSection} onClick={onClick}>
       <div className={styles.menteeProfileBlock}>
         <div className={styles.profileImg}>
-          <Image src={"/samples/lecture.png"} width={32} height={32} />
+          <Image src={data?.userImage} width={32} height={32} />
         </div>
 
         <div className={styles.alignColumn}>
@@ -33,7 +33,11 @@ const MentorReview = ({ token, cid, mentee, data, role }) => {
     <section className={styles.mentorReviewSection}>
       <div className={styles.mentorProfileBlock}>
         <div className={styles.profileImg}>
-          <Image src={"/samples/lecture.png"} width={32} height={32} />
+          <Image
+            src={data?.userImage ? data?.userImage : "/samples/lecture.png"}
+            width={32}
+            height={32}
+          />
         </div>
         {role === "ROLE_MENTEE" ? (
           <div></div>
