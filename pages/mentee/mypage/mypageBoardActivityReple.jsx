@@ -9,6 +9,7 @@ import { getMyComments } from "../../../core/api/Mentee";
 import TopBar from "../../../components/mentee/mypageBoardActivity/TopBar";
 
 function MypageBoardActivityReple({ commentList, role }) {
+  console.log(commentList, "test");
   return (
     <main className={styles.main}>
       <TopBar title="게시판 활동내역" />

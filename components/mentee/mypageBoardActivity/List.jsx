@@ -4,6 +4,7 @@ import styles from "./List.module.scss";
 
 function List({ boardList }) {
   const router = useRouter();
+
   return (
     <ul className={styles.container}>
       {boardList.map((content) => (
