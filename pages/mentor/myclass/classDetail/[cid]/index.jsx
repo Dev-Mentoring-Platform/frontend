@@ -192,8 +192,13 @@ const ClassDetail = ({ token, classData, reviewData, classID }) => {
         {classData.lecturePrices.map((data, i) => {
           return (
             <div className={styles.price} key={i}>
-              <span>{data.isGroup ? "그룹" : "1:1"}</span>
+              <span className={styles.group}>
+                {data.isGroup ? "그룹" : "1:1"}
+              </span>
               <h1>{data.totalPrice.toLocaleString("ko-KR")} 원</h1>
+              <span className={styles.priceDetail}>
+                ({data.numberOfLectures}회, {data.timePerLecture}시간)
+              </span>
             </div>
           );
         })}
