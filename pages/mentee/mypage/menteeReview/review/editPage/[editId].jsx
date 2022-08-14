@@ -99,7 +99,9 @@ const edit = ({ token, editId, viewLecture }) => {
               <img
                 className={styles.lectureInfoImg}
                 src={
-                  reviews.thumbnail ? reviews.thumbnail : "/samples/lecture.png"
+                  reviews.lecture?.thumbnail
+                    ? reviews.lecture?.thumbnail
+                    : "/samples/lecture.png"
                 }
               />
               <div className={styles.lectureInfoText}>
