@@ -11,11 +11,7 @@ const ClassRegistrationInputError = (form, setErr) => {
     setErr("강의 난이도를 선택해주세요.");
   } else if (form.content == "" || form.content == "<p><br></p>") {
     setErr("강의 상세 내용 및 이미지를 등록해주세요.");
-  } else if (
-    form.online == "off" &&
-    form.offline == "off" &&
-    form.discuss == "off"
-  ) {
+  } else if (form.online == "off" && form.offline == "off") {
     setErr("'강의 방식1'을 선택해주세요. ");
   } else if (form.personal == "off" && form.group == "off") {
     setErr("'강의 방식2'를 선택해주세요. ");

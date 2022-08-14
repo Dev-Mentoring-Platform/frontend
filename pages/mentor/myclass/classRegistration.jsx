@@ -49,7 +49,6 @@ export const getServerSideProps = async (context) => {
       GnumOfClass: classPrice.GnumOfClass,
       online: classSystem.online,
       offline: classSystem.offline,
-      discuss: classSystem.discuss,
       personal: classPrice.personal,
       group: classPrice.group,
       groupMax: classPrice.groupMax,
@@ -116,7 +115,6 @@ const ClassRegistration = ({ token, classIDReal, classData }) => {
 
   const onChange = (name, index) => async (e) => {
     let value = e.target.value;
-    let discuss = form.discuss;
     switch (name) {
       case "title":
       case "introduction":
@@ -132,16 +130,10 @@ const ClassRegistration = ({ token, classIDReal, classData }) => {
         value = 1;
         break;
       case "online":
-      case "discuss":
+      case "offline":
       case "personal":
       case "group":
         value = form[name] == "on" ? "off" : "on";
-        break;
-      case "offline":
-        value = form.offline == "on" ? "off" : "on";
-        if (value == "off") {
-          discuss = "off";
-        }
         break;
       default:
         break;
@@ -169,21 +161,6 @@ const ClassRegistration = ({ token, classIDReal, classData }) => {
           form: "classInfo",
           key: "lectureSubject",
           index: index,
-        })
-      );
-    } else if (name == "offline") {
-      dispatch(
-        ChangeField({
-          form: "classInfo",
-          key: name,
-          value,
-        })
-      );
-      dispatch(
-        ChangeField({
-          form: "classInfo",
-          key: "discuss",
-          discuss,
         })
       );
     } else {
