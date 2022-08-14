@@ -36,7 +36,7 @@ const BoardComment = ({ token, content, myInfo }) => {
               content.commentId
             );
             if (res.status == 200) {
-              alert("게시물이 삭제되었습니다.");
+              alert("댓글이 삭제되었습니다.");
             } else {
               console.log(res.data.message);
             }
