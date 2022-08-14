@@ -17,7 +17,9 @@ const ClassCard = ({ data }) => {
   return (
     <section
       className={styles.classCard}
-      onClick={() => router.push(`/mentor/myclass/classDetail/${data.id}`)}
+      onClick={() =>
+        router.push(`/mentor/myclass/classDetail/${data.lectureId}`)
+      }
     >
       <div className={styles.classCardImage}>
         <Image

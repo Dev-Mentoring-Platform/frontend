@@ -39,13 +39,9 @@ const MenteeListBlock = ({ token, data, setOpen, setModal, type }) => {
   }, []);
 
   useEffect(() => {
-    if (menteeLecture[0]?.lecture.lecturePrice.isGroup) {
-      setSystems(
-        menteeLecture[0]?.lecture.systemTypes[0].name + " / " + "그룹"
-      );
-    } else {
-      setSystems(menteeLecture[0]?.lecture.systemTypes[0].name + " / " + "1:1");
-    }
+    if (menteeLecture[0]?.lecture.lecturePrice.isGroup)
+      setSystems(menteeLecture[0]?.lecture.systems[0].name + " / " + "그룹");
+    else setSystems(menteeLecture[0]?.lecture.systems[0].name + " / " + "1:1");
   }, [menteeLecture]);
 
   return (

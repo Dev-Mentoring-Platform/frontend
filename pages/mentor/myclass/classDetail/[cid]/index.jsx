@@ -62,7 +62,7 @@ const ClassDetail = ({ token, classData, reviewData, classID }) => {
             btnText={"강의 삭제"}
             modalStyle={"square"}
             btnClick={async () => {
-              const res = await deleteLecture(token, classData.id);
+              const res = await deleteLecture(token, classData.lectureId);
               if (res == 200) {
                 router.push("/mentor/myclass/myClassList");
               }
@@ -141,7 +141,7 @@ const ClassDetail = ({ token, classData, reviewData, classID }) => {
             onClick={() =>
               router.push({
                 pathname: "/mentor/myclass/classRegistration",
-                query: { classID: classData.id },
+                query: { classID: classData.lectureId },
               })
             }
           />
@@ -230,7 +230,7 @@ const ClassDetail = ({ token, classData, reviewData, classID }) => {
               return (
                 <ClassReview
                   token={token}
-                  cid={classData.id}
+                  cid={classData.lectureId}
                   mentee={data}
                   key={i}
                 />
