@@ -7,6 +7,7 @@ const BasicSelectBox = ({
   onChange,
   otherClassName,
   selectStyles,
+  value,
 }) => {
   return (
     <div className={classNames(styles.selectBox, otherClassName)}>
@@ -17,7 +18,11 @@ const BasicSelectBox = ({
         className={selectStyles}
       >
         {arr?.map((data, i) => (
-          <option value={data} key={i}>
+          <option
+            value={data}
+            key={i}
+            selected={value == data ? "selected" : ""}
+          >
             {data}
           </option>
         ))}

@@ -12,6 +12,10 @@
   .signupInput {
     @include inputBox(50px, 14px 37px);
     margin-bottom: 10px;
+
+    span {
+      @include text-style($fs-14, $sub, 400);
+    }
   }
 
   .inputWithDupBtn {
