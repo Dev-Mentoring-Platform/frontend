@@ -20,6 +20,7 @@ const BasicDataBlock = ({ datas }) => {
         <BasicSelectBox
           arr={basicData.birthYear}
           name={"birthYear"}
+          value={user?.birth}
           onChange={(e) => {
             setUser({ ...user, birth: e.target.value });
           }}
@@ -27,6 +28,7 @@ const BasicDataBlock = ({ datas }) => {
         <BasicSelectBox
           arr={basicData.gender}
           name={"gender"}
+          value={user?.gender === "FEMALE" ? "여자" : "남자"}
           onChange={(e) => {
             setUser({ ...user, gender: e.target.value });
           }}

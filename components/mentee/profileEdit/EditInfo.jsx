@@ -1,80 +1,20 @@
-import classNames from "classnames";
 import styles from "./EditInfo.module.scss";
-
-import { IC_Check } from "../../../icons";
-import { BasicBtn, BasicInputBox, basicBtnStyle } from "../../common";
-import { nickNameDupCheck, emailDupCheck } from "../../../core/api/Login";
-import { EmailValidation } from "../../../utils/validation";
+import { BasicInputBox } from "../../common";
 
 const EditInfo = ({ datas }) => {
-  const { user, setUser, dupCheck, setDupCheck, checkError } = datas;
-  const SetDupState = (propTrue, propFalse) => {
-    setDupCheck({
-      ...dupCheck,
-      [propFalse]: false,
-      [propTrue]: true,
-    });
-  };
+  const { user, setUser, checkError } = datas;
 
   return (
     <div className={styles.inputSection}>
       <div className={styles.inputWithDupBtn}>
-        <BasicInputBox
-          type="text"
-          style={styles.signupInput}
-          placeholder={"닉네임"}
-          onChange={(e) => setUser({ ...user, nickname: e.target.value })}
-          value={user.nickname}
-        />
-        {dupCheck.nicknameDupSuccess ? (
-          <IC_Check className={styles.successIC} />
-        ) : (
-          <BasicBtn
-            text={"중복확인"}
-            onClick={async () => {
-              const nicknameDup = await nickNameDupCheck(user.nickname);
-              if (nicknameDup) {
-                SetDupState("nicknameDupError", "nicknameDupSuccess");
-              } else {
-                SetDupState("nicknameDupSuccess", "nicknameDupError");
-              }
-            }}
-            btnStyle={classNames(basicBtnStyle.btn_blue, styles.dupBtn)}
-            textStyle={styles.dupBtnText}
-          />
-        )}
+        <div className={styles.signupInput}>
+          <span>{user.nickname}</span>
+        </div>
       </div>
       <div className={styles.inputWithDupBtn}>
-        <BasicInputBox
-          type="email"
-          style={styles.signupInput}
-          placeholder={"ID(E-mail)"}
-          onChange={(e) =>
-            setUser((prev) => ({ ...prev, email: e.target.value }))
-          }
-          value={user.email}
-        />
-        {dupCheck.emailDupSuccess ? (
-          <IC_Check className={styles.successIC} />
-        ) : (
-          <BasicBtn
-            text={"중복확인"}
-            onClick={async () => {
-              if (!EmailValidation(user.email)) {
-                return;
-              } else {
-                const emailDup = await emailDupCheck(user.email);
-                if (emailDup) {
-                  SetDupState("emailDupError", "emailDupSuccess");
-                } else {
-                  SetDupState("emailDupSuccess", "emailDupError");
-                }
-              }
-            }}
-            btnStyle={classNames(basicBtnStyle.btn_blue, styles.dupBtn)}
-            textStyle={styles.dupBtnText}
-          />
-        )}
+        <div className={styles.signupInput}>
+          <span>{user.email}</span>
+        </div>
       </div>
       <BasicInputBox
         type="text"
