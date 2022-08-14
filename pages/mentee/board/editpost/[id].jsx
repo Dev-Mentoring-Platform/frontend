@@ -80,7 +80,6 @@ const EditPost = ({ token, post_id, postDetail }) => {
         text={"수정"}
         disabled={!(errMsg == "")}
         onClick={async () => {
-          console.log(inquiryInfo);
           const res = await editBoardPosts(token, post_id, inquiryInfo);
           if (res.status == 200) {
             setResult({ success: true, error: false, errorMsg: "" });

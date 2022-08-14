@@ -35,7 +35,6 @@ const EditMemberInfo = ({ token, role, userInfo }) => {
   });
 
   const zoneSplit = userInfo.zone.split(" ");
-  console.log(zoneSplit);
   const [addr, setAddr] = useState({
     state: [],
     sigungu: [],

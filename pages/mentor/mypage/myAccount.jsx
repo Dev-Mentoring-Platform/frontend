@@ -28,7 +28,6 @@ const ProfileEdit = ({ token, userInfo }) => {
     formData.append("file", file);
     const imgUrl = await uploadImage(formData, token);
     const imgRegister = await registerProfileImg(token, imgUrl.data.url);
-    console.log("imgRef", imgRegister);
     if (imgRegister.status == 200) {
       Router.reload(window.location.pathname);
       setErr("");

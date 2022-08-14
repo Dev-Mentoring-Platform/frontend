@@ -23,7 +23,6 @@ const SocketProvider = ({
   const [alarmContents, setAlarmContents] = useState(undefined);
   const [alarmCnt, setAlarmCnt] = useState(uncheckedCnt);
   const [chat, setChat] = useState(undefined);
-  console.log("myChatRooms===", myChatRooms);
 
   const getContextValue = useCallback(
     () => ({ alarmContents, alarmCnt, chat, ws }),
@@ -42,7 +41,6 @@ const SocketProvider = ({
         myChatRooms?.length != 0 &&
         Array.isArray(myChatRooms) &&
         myChatRooms?.forEach((data) => {
-          console.log("data==", data);
           ws?.subscribe(`/sub/chat/room/${data?.chatroomId}`, (data2) => {
             setChat(JSON.parse(data2.body));
           });

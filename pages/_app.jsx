@@ -87,7 +87,6 @@ MyApp.getInitialProps = async (context) => {
   let newToken = "";
 
   if (context.ctx.req && context.ctx.req.headers.cookie) {
-    console.log("this is req===", context.ctx.req);
     // if(context.ctx.req.statusCode==401 && message=="TOKENEXPIRED"){
     // tokenRefresh();
     // }

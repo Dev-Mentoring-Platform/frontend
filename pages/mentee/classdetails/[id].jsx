@@ -8,7 +8,6 @@ import styles from "./classdetails.module.scss";
 import { getLectureDetails, getMenteeReview } from "../../../core/api/Mentee";
 
 const ClassDetails = ({ token, classData, reviewData, params, role }) => {
-  console.log("classes===============", classData);
   return (
     <section className={styles.container}>
       <TopMenu />

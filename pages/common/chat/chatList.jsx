@@ -27,7 +27,6 @@ const ChatList = ({ myChatRooms, role }) => {
   const [updated, setUpdated] = useState(myChatRooms.content);
 
   useEffect(() => {
-    console.log("chat===", chat);
     if (chat != undefined && chat.type === "MESSAGE") {
       let filtered = [],
         thatRoom;
@@ -40,10 +39,6 @@ const ChatList = ({ myChatRooms, role }) => {
       setUpdated(chatLists);
     }
   }, [chat]);
-
-  useEffect(() => {
-    console.log("updated==", updated);
-  }, [updated]);
 
   return (
     <>

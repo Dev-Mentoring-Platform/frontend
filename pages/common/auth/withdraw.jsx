@@ -33,8 +33,6 @@ const WithDraw = ({ token, role }) => {
       reason: select,
       reasonId: 0,
     });
-
-    console.log(res);
   };
 
   const handlePassword = (e) => {

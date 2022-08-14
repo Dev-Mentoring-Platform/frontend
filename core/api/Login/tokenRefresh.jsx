@@ -14,11 +14,5 @@ export const tokenRefresh = async (access, refresh, role) => {
       role: role,
     },
   });
-  // console.log("Res=", res);
-  // setCookie("accessToken", res.headers["x-access-token"], {
-  //   path: "/",
-  //   secure: true,
-  //   withCredentials: true,
-  // });
   return res;
 };

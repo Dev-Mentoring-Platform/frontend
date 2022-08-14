@@ -28,7 +28,6 @@ export async function getServerSideProps(context) {
 }
 
 const WriteMentee = ({ token, lectureId, unreviewedLecture }) => {
-  console.log(lectureId, unreviewedLecture);
   const [modal, setModal] = useState(false);
   const [confirm, setConfirm] = useState(false);
 

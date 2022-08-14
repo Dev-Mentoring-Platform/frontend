@@ -17,7 +17,6 @@ myAxios.interceptors.request.use(
 
 myAxios.interceptors.response.use(
   async function (response) {
-    console.log("isRefresh====", isRefresh);
     if (isRefresh) {
       myAxios(config);
       return response;

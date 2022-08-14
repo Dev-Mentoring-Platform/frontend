@@ -20,7 +20,6 @@ export const getServerSideProps = async (context) => {
 };
 
 const MentorIntroduction = ({ myInfoAsMentor }) => {
-  console.log("test--=============", getCookie("accessToken"));
   const user = myInfoAsMentor.user;
   const careers = myInfoAsMentor.careers[0];
   const edu = myInfoAsMentor.educations[0];
