@@ -8,41 +8,35 @@
     @include text-style(18px, $sub, 700);
   }
 
-  .btns {
-    @include flexBox(between, center);
-    width: 104px;
-    height: 24px;
+  .mypageBtn {
+    position: relative;
+    padding: 0;
+    cursor: pointer;
+    background-color: transparent;
+    border: 0;
 
-    .mypageBtn {
-      position: relative;
-      padding: 0;
-      cursor: pointer;
-      background-color: transparent;
-      border: 0;
+    .unchecked {
+      @include flexBox;
+      height: 12px;
+      padding: 0 4px;
+      background-color: $red;
+      border-radius: 5px;
 
-      .unchecked {
-        @include flexBox;
-        height: 12px;
-        padding: 0 4px;
-        background-color: $red;
-        border-radius: 5px;
-
-        span {
-          @include text-style(1px, $white, 100);
-        }
+      span {
+        @include text-style(1px, $white, 100);
       }
+    }
 
-      .unchecked_S {
-        @include pos(absolute, -2px, 0, false, false);
-      }
+    .unchecked_S {
+      @include pos(absolute, -2px, 0, false, false);
+    }
 
-      .unchecked_M {
-        @include pos(absolute, -2px, -4px, false, false);
-      }
+    .unchecked_M {
+      @include pos(absolute, -2px, -4px, false, false);
+    }
 
-      .unchecked_L {
-        @include pos(absolute, -2px, -8px, false, false);
-      }
+    .unchecked_L {
+      @include pos(absolute, -2px, -8px, false, false);
     }
   }
 }
