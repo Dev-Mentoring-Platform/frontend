@@ -91,12 +91,7 @@ const edit = ({ token, editId, viewLecture }) => {
         )}
 
         <section className={styles.topSection}>
-          <TopBar
-            text={"후기 수정"}
-            onClick={() => {
-              router.back();
-            }}
-          />
+          <TopBar text={"후기 수정"} />
         </section>
         <section className={styles.contentSection}>
           <article className={styles.lectureInfoSection}>

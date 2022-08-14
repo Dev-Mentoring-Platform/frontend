@@ -38,12 +38,6 @@ const ChangePW = ({ token, role }) => {
 
   const [modal, setModal] = useState(false);
 
-  const goBack = () => {
-    return role === "ROLE_MENTEE"
-      ? router.push("/mentee/mypage/myAccount")
-      : router.push("/mentor/mypage");
-  };
-
   useEffect(() => {
     if (
       pw.newPassword == "" ||
@@ -84,7 +78,7 @@ const ChangePW = ({ token, role }) => {
           />
         </ModalWithBackground>
       )}
-      <TopBar text={"비밀번호 변경"} onClick={goBack} />
+      <TopBar text={"비밀번호 변경"} />
       <p className={styles.text}>
         주기적인 비밀번호 변경을 통해
         <br />

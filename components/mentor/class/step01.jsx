@@ -18,7 +18,7 @@ const Step01 = ({ form, handleChange, imgChange, MoveStep, token }) => {
       {modal ? (
         <ModalWithBackground setModal={setModal}>
           <BasicModal
-            notice={`등록 중인 강의를 취소하시겠습니까?\n작성 취소 시, 작성된 내용은 저장되지 않습니다.`}
+            notice={`등록을 취소하시겠습니까?\n작성 취소 시, 작성된 내용은 저장되지 않습니다.`}
             btnText={"강의 등록 취소"}
             modalStyle={"square"}
             btnClick={() =>

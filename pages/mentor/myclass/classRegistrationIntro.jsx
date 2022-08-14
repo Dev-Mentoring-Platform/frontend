@@ -7,7 +7,7 @@ const ClassRegistrationIntro = ({}) => {
   return (
     <>
       <section className={styles.topSection}>
-        <TopBar text={"강의 목록"} />
+        <TopBar text={"강의 목록"} removeBack={true} />
         <div className={styles.category}>
           <MenuBtn
             selected={false}

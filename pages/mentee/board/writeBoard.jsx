@@ -42,7 +42,7 @@ const WriteBoard = ({ token, categories }) => {
 
   return (
     <section className={styles.changeInquiry}>
-      <TopBar text={"글쓰기"} onClick={() => router.back()} />
+      <TopBar text={"글쓰기"} />
       <p className={styles.content}>
         <BasicSelectBox
           arr={categories}

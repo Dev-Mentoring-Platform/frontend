@@ -36,7 +36,7 @@ const ProfileEdit = ({ token, userInfo }) => {
   };
   return (
     <section className={styles.profileEditSection}>
-      <TopBar text={"내 계정"} onClick={() => router.push("/mentee/mypage")} />
+      <TopBar text={"내 계정"} />
       <div className={styles.imgSection}>
         <input
           type="file"

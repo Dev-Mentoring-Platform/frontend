@@ -36,10 +36,7 @@ const MenteeList = ({ token, myMenteeClosed, myMenteeOpened }) => {
       ) : (
         <></>
       )}
-      <TopBar
-        text={"멘티 목록"}
-        onClick={() => router.push("/mentor/mypage")}
-      />
+      <TopBar text={"멘티 목록"} />
       <div className={styles.ing}>
         <div className={styles.titleBox}>
           <h1 className={styles.title}>진행 중인 강의의 멘티</h1>

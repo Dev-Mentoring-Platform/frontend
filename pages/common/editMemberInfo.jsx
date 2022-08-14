@@ -80,12 +80,6 @@ const EditMemberInfo = ({ token, role, userInfo }) => {
     }
   };
 
-  const goBack = () => {
-    return role === "ROLE_MENTEE"
-      ? router.push("/mentee/mypage/myAccount")
-      : router.push("/mentor/mypage");
-  };
-
   useEffect(() => {
     EditInfoErr({ dupCheck, user }, setCheckError);
   }, [user, dupCheck]);
@@ -108,7 +102,7 @@ const EditMemberInfo = ({ token, role, userInfo }) => {
 
   return (
     <section className={styles.signUp01}>
-      <TopBar text={"회원정보 수정"} onClick={goBack} />
+      <TopBar text={"회원정보 수정"} />
       <div className={styles.contentSection}>
         <EditInfo
           datas={{ user, setUser, dupCheck, setDupCheck, checkError }}

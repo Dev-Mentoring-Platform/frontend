@@ -34,10 +34,7 @@ const MenteeUncheckedList = ({ token, myMenteeUnchecked }) => {
       ) : (
         <></>
       )}
-      <TopBar
-        text={"멘티 목록"}
-        onClick={() => router.push("/mentor/mypage")}
-      />
+      <TopBar text={"멘티 목록"} />
       <div className={styles.ing}>
         <div className={styles.titleBox}>
           <h1 className={styles.title}>강의 신청한 멘티</h1>

@@ -40,10 +40,7 @@ const EditMentorInfo = ({ token, myBio, myCareer, myNewEdu }) => {
 
   return (
     <section className={styles.editMentorInfoSection}>
-      <TopBar
-        text={"멘토 정보 수정"}
-        onClick={() => router.push("/mentor/mypage/mentorIntroduction")}
-      />
+      <TopBar text={"멘토 정보 수정"} />
       <div className={styles.editInfoBlock}>
         <h1 className={styles.editInfoTitle}>학력정보</h1>
         <InfoEditBox

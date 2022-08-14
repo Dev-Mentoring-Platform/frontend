@@ -72,7 +72,7 @@ const Inquiry = ({ token, role }) => {
 
   return (
     <section className={styles.changeInquiry}>
-      <TopBar text={"문의하기"} onClick={() => router.back()} />
+      <TopBar text={"문의하기"} />
       <p className={styles.text}>
         멘토릿지를 이용하면서 생긴 불편사항이나 개선사항을
         <br />

@@ -40,12 +40,7 @@ const mypageMenteeReview = ({ token, unreviewedMentee, menteeReviews }) => {
     <>
       <section className={styles.contentSection}>
         <section className={styles.topSection}>
-          <TopBar
-            text={"강의 후기"}
-            onClick={() => {
-              router.back();
-            }}
-          />
+          <TopBar text={"강의 후기"} />
           <div className={styles.category}>
             {tabMenu.map((tab, i) => (
               <MenuBtn

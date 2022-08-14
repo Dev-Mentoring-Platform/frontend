@@ -53,7 +53,7 @@ const RegisterAsMentor = ({ token }) => {
           />
         </ModalWithBackground>
       )}
-      <TopBar text={"멘토로 등록"} onClick={() => router.back()} />
+      <TopBar text={"멘토로 등록"} />
       <div className={styles.editInfoBlock}>
         <h1 className={styles.editInfoTitle}>학력정보</h1>
         <InfoEditBox

@@ -67,12 +67,7 @@ const detailReview = ({ token, lecturesCon, review }) => {
           />
         )}
 
-        <TopBar
-          text={"후기 상세보기"}
-          onClick={() => {
-            router.back();
-          }}
-        />
+        <TopBar text={"후기 상세보기"} />
 
         <IC_Menu onClick={handleModal} className={styles.pointer} />
       </section>

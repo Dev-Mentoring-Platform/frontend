@@ -39,7 +39,7 @@ const EditPost = ({ token, post_id, postDetail }) => {
 
   return (
     <section className={styles.changeInquiry}>
-      <TopBar text={"글쓰기"} onClick={() => router.back()} />
+      <TopBar text={"글쓰기"} />
       <p className={styles.content}>
         <BasicInputBox
           type={"text"}

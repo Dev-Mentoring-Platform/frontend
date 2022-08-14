@@ -85,13 +85,7 @@ const WriteMentee = ({ token, lectureId, unreviewedLecture }) => {
         )}
 
         <article className={styles.topSection}>
-          <TopBar
-            text={"후기 작성"}
-            onClick={() => {
-              // router.push("/mentee/mypage/menteeReview");
-              router.back();
-            }}
-          />
+          <TopBar text={"후기 작성"} />
         </article>
 
         <article className={styles.lectureInfoSection}>

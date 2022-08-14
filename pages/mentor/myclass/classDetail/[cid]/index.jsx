@@ -117,7 +117,7 @@ const ClassDetail = ({ token, classData, reviewData, classID }) => {
           </div>
         </ModalWithBackground>
       )}
-      <TopBar onClick={() => router.push("/mentor/myclass/myClassList")} />
+      <TopBar  />
       <div className={styles.imageBlock}>
         <Image
           src={
