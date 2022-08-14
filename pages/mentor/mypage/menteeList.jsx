@@ -6,7 +6,7 @@ import router from "next/router";
 import { DecideOpenOrClose } from "../../../components/mentor/mypage/menteeListLine";
 import { getMyMentees } from "../../../core/api/Mentor";
 import { ModalWithBackground, BasicModal } from "../../../components/common";
-import EmptyDataNotice from "../../../components/common/emptyDataNotice";
+import NoWrite from "../../../components/mentee/NoWrite";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -44,7 +44,7 @@ const MenteeList = ({ token, myMenteeClosed, myMenteeOpened }) => {
         <div className={styles.titleBox}>
           <h1 className={styles.title}>진행 중인 강의의 멘티</h1>
         </div>
-        <EmptyDataNotice data={openedMentee} content={"멘티"} />
+        <NoWrite text={"아직 멘티가 없습니다."} />
         {openedMentee?.map((data, i) => {
           return (
             <DecideOpenOrClose
@@ -64,7 +64,7 @@ const MenteeList = ({ token, myMenteeClosed, myMenteeOpened }) => {
         <div className={styles.titleBox}>
           <h1 className={styles.title}>종료된 강의의 멘티</h1>
         </div>
-        <EmptyDataNotice data={closedMentee} content={"멘티"} />
+        <NoWrite text={"아직 멘티가 없습니다."} />
         {closedMentee?.map((data, i) => {
           return (
             <DecideOpenOrClose

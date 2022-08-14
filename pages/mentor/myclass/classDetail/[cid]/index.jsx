@@ -22,12 +22,12 @@ import {
   RatingBig,
 } from "../../../../../components/mentor/class/rating";
 import { LevelToKor } from "../../../../../utils/class/classLevel";
-import EmptyDataNotice from "../../../../../components/common/emptyDataNotice";
 import {
   closeLecture,
   openLecture,
 } from "../../../../../core/api/Mentor/openLecture";
 import RefreshPage from "../../../../../utils/refreshPage";
+import NoWrite from "../../../../../components/mentee/NoWrite";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -225,7 +225,7 @@ const ClassDetail = ({ token, classData, reviewData, classID }) => {
           </div>
           <div className={styles.reviews}>
             <h1 className={styles.reviewTitle}>강의 후기</h1>
-            <EmptyDataNotice data={reviewData.content} content="강의 후기" />
+            <NoWrite text={"아직 강의 후기가 없습니다."} />
             {reviewData.content.map((data, i) => {
               return (
                 <ClassReview
