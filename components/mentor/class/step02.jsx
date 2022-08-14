@@ -18,10 +18,6 @@ const Step02 = ({ form, handleChange, MoveStep, token }) => {
     getSubjects().then((res) => setSubject(res));
   }, []);
 
-  useEffect(() => {
-    console.log("subject==", subject);
-  }, [subject]);
-
   return (
     <div className={styles.step}>
       <TopBar text={"강의 등록"} onClick={() => MoveStep(form.step - 1)} />

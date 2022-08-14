@@ -9,7 +9,6 @@ import styles from "./LectureBlock.module.scss";
 
 const LectureBlock = ({ lecture, approved, token }) => {
   const router = useRouter();
-  console.log(lecture);
   return (
     <div className={styles.lectureBlock}>
       <div className={styles.lectureInfo}>
@@ -55,7 +54,6 @@ const LectureBlock = ({ lecture, approved, token }) => {
             )}
             onClick={async () => {
               const res = await approveLecture(token, lecture.enrollmentId);
-              console.log("수강완료 >>>>>> ", res);
               window.location.reload();
             }}
             disabled={lecture.finished}

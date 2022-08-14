@@ -20,7 +20,6 @@ export const getServerSideProps = async (context) => {
 };
 
 const MentorIntroduction = ({ myInfoAsMentor }) => {
-  console.log("test--=============", getCookie("accessToken"));
   const user = myInfoAsMentor.user;
   const careers = myInfoAsMentor.careers[0];
   const edu = myInfoAsMentor.educations[0];
@@ -30,10 +29,7 @@ const MentorIntroduction = ({ myInfoAsMentor }) => {
 
   return (
     <section className={styles.mentorIntroductionSection}>
-      <TopBar
-        text={"멘토 소개"}
-        onClick={() => router.push("/mentor/mypage/myAccount")}
-      />
+      <TopBar text={"멘토 소개"} />
 
       <section className={styles.basicInfo}>
         <h1 className={styles.title}>기본정보</h1>

@@ -8,7 +8,6 @@ import { getMenteePicks } from "../../../core/api/Mentee";
 import NoWrite from "../../../components/mentee/NoWrite";
 
 export default function myPageWishList({ wishList }) {
-  console.log(wishList);
   return (
     <main className={styles.main}>
       <TopMenu />

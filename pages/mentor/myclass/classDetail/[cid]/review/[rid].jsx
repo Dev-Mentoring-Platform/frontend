@@ -109,10 +109,7 @@ const ReviewDetail = ({ classID, reviewID, reviewData, parsedCookies }) => {
           />
         </ModalWithBackground>
       )}
-      <TopBar
-        text={"후기 상세보기"}
-        onClick={() => router.push(`/mentor/myclass/classDetail/${classID}`)}
-      />
+      <TopBar text={"후기 상세보기"} />
       <div className={styles.menteeReviewBlock}>
         <MenteeReview data={reviewData} />
       </div>

@@ -22,12 +22,12 @@ import {
   RatingBig,
 } from "../../../../../components/mentor/class/rating";
 import { LevelToKor } from "../../../../../utils/class/classLevel";
-import EmptyDataNotice from "../../../../../components/common/emptyDataNotice";
 import {
   closeLecture,
   openLecture,
 } from "../../../../../core/api/Mentor/openLecture";
 import RefreshPage from "../../../../../utils/refreshPage";
+import NoWrite from "../../../../../components/mentee/NoWrite";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -62,7 +62,7 @@ const ClassDetail = ({ token, classData, reviewData, classID }) => {
             btnText={"강의 삭제"}
             modalStyle={"square"}
             btnClick={async () => {
-              const res = await deleteLecture(token, classData.id);
+              const res = await deleteLecture(token, classData.lectureId);
               if (res == 200) {
                 router.push("/mentor/myclass/myClassList");
               }
@@ -117,7 +117,7 @@ const ClassDetail = ({ token, classData, reviewData, classID }) => {
           </div>
         </ModalWithBackground>
       )}
-      <TopBar onClick={() => router.push("/mentor/myclass/myClassList")} />
+      <TopBar  />
       <div className={styles.imageBlock}>
         <Image
           src={
@@ -141,7 +141,7 @@ const ClassDetail = ({ token, classData, reviewData, classID }) => {
             onClick={() =>
               router.push({
                 pathname: "/mentor/myclass/classRegistration",
-                query: { classID: classData.id },
+                query: { classID: classData.lectureId },
               })
             }
           />
@@ -192,8 +192,13 @@ const ClassDetail = ({ token, classData, reviewData, classID }) => {
         {classData.lecturePrices.map((data, i) => {
           return (
             <div className={styles.price} key={i}>
-              <span>{data.isGroup ? "그룹" : "1:1"}</span>
+              <span className={styles.group}>
+                {data.isGroup ? "그룹" : "1:1"}
+              </span>
               <h1>{data.totalPrice.toLocaleString("ko-KR")} 원</h1>
+              <span className={styles.priceDetail}>
+                ({data.numberOfLectures}회, {data.timePerLecture}시간)
+              </span>
             </div>
           );
         })}
@@ -225,12 +230,12 @@ const ClassDetail = ({ token, classData, reviewData, classID }) => {
           </div>
           <div className={styles.reviews}>
             <h1 className={styles.reviewTitle}>강의 후기</h1>
-            <EmptyDataNotice data={reviewData.content} content="강의 후기" />
+            <NoWrite text={"아직 강의 후기가 없습니다."} />
             {reviewData.content.map((data, i) => {
               return (
                 <ClassReview
                   token={token}
-                  cid={classData.id}
+                  cid={classData.lectureId}
                   mentee={data}
                   key={i}
                 />

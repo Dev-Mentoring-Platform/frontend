@@ -78,7 +78,7 @@ const SignUp = () => {
 
   return (
     <section className={styles.signUp01}>
-      <TopBar text={"회원가입"} onClick={() => router.push("/")} />
+      <TopBar text={"회원가입"} />
       <div className={styles.contentSection}>
         <UserBlock
           datas={{ user, setUser, dupCheck, setDupCheck, checkError }}

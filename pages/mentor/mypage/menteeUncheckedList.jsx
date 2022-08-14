@@ -5,8 +5,8 @@ import styles from "./menteeList.module.scss";
 import router from "next/router";
 import { DecideOpenOrClose } from "../../../components/mentor/mypage/menteeListLine";
 import { ModalWithBackground, BasicModal } from "../../../components/common";
-import EmptyDataNotice from "../../../components/common/emptyDataNotice";
 import { getUncheckedLecture } from "../../../core/api/Mentor/getMyMentees";
+import NoWrite from "../../../components/mentee/NoWrite";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -34,15 +34,12 @@ const MenteeUncheckedList = ({ token, myMenteeUnchecked }) => {
       ) : (
         <></>
       )}
-      <TopBar
-        text={"멘티 목록"}
-        onClick={() => router.push("/mentor/mypage")}
-      />
+      <TopBar text={"멘티 목록"} />
       <div className={styles.ing}>
         <div className={styles.titleBox}>
           <h1 className={styles.title}>강의 신청한 멘티</h1>
         </div>
-        <EmptyDataNotice data={uncheckedMentee} content={"멘티"} />
+        <NoWrite text={"아직 멘티가 없습니다."} />
         {uncheckedMentee?.map((data, i) => {
           return (
             <DecideOpenOrClose

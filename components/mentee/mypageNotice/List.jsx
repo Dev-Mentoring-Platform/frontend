@@ -5,7 +5,6 @@ import { IC_ArrowRight } from "../../../icons";
 import { useRouter } from "next/router";
 function List({ notice }) {
   const router = useRouter();
-  console.log(notice);
   return (
     <>
       <ul

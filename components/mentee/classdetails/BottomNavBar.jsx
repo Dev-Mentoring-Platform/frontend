@@ -26,7 +26,6 @@ function BottomNavBar({ classData, token, params }) {
 
   const handlePicks = async () => {
     const res = await updatePicks(token, params);
-    console.log("res=====================", res);
 
     if (res.data) {
       setLiked(true);

@@ -25,7 +25,7 @@ const MyClassList = ({ classes, token }) => {
   return (
     <>
       <section className={styles.topSection}>
-        <TopBar text={"강의 목록"} />
+        <TopBar text={"강의 목록"} removeBack={true} />
         <div className={styles.category}>
           <MenuBtn
             selected={true}
@@ -73,7 +73,7 @@ export const getServerSideProps = async (context) => {
       token,
     },
   };
-}
+};
 
 // export const getStaticProps = async () => {
 //   const classes = await getMyLectures(1, token);

@@ -46,11 +46,7 @@ const MentorCon = ({ mentorData, lectureListData, params, token }) => {
 
   return (
     <section className={styles.mentorIntroductionSection}>
-      <TopBar
-        onClick={() => {
-          router.back();
-        }}
-      />
+      <TopBar />
 
       <section className={styles.basicInfo}>
         <article className={styles.mentorInfoCon}>

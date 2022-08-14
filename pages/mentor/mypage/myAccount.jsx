@@ -28,7 +28,6 @@ const ProfileEdit = ({ token, userInfo }) => {
     formData.append("file", file);
     const imgUrl = await uploadImage(formData, token);
     const imgRegister = await registerProfileImg(token, imgUrl.data.url);
-    console.log("imgRef", imgRegister);
     if (imgRegister.status == 200) {
       Router.reload(window.location.pathname);
       setErr("");
@@ -39,7 +38,7 @@ const ProfileEdit = ({ token, userInfo }) => {
 
   return (
     <section className={styles.profileEditSection}>
-      <TopBar text={"내 계정"} onClick={() => router.push("/mentor/mypage")} />
+      <TopBar text={"내 계정"} />
       <div className={styles.imgSection}>
         <input
           type="file"

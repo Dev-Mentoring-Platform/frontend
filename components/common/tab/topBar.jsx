@@ -1,11 +1,22 @@
 import { IC_ArrowLeft } from "../../../icons";
 import styles from "./topBar.module.scss";
-const TopBar = ({ text, onClick }) => {
+import router from "next/router";
+
+const TopBar = ({ text, onClick, removeBack }) => {
   return (
     <div className={styles.topBar}>
-      <button type="button" aria-label="뒤로 가기" onClick={onClick}>
-        <IC_ArrowLeft />
-      </button>
+      {!removeBack && (
+        <button
+          type="button"
+          aria-label="뒤로 가기"
+          onClick={() => {
+            if (onClick) onClick();
+            else router.back();
+          }}
+        >
+          <IC_ArrowLeft />
+        </button>
+      )}
       <span>{text}</span>
     </div>
   );
