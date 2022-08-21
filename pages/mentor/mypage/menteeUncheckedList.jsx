@@ -39,7 +39,9 @@ const MenteeUncheckedList = ({ token, myMenteeUnchecked }) => {
         <div className={styles.titleBox}>
           <h1 className={styles.title}>강의 신청한 멘티</h1>
         </div>
-        <NoWrite text={"아직 멘티가 없습니다."} />
+        {uncheckedMentee.length === 0 && (
+          <NoWrite text={"아직 멘티가 없습니다."} />
+        )}
         {uncheckedMentee?.map((data, i) => {
           return (
             <DecideOpenOrClose

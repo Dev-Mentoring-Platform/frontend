@@ -41,7 +41,9 @@ const MenteeList = ({ token, myMenteeClosed, myMenteeOpened }) => {
         <div className={styles.titleBox}>
           <h1 className={styles.title}>진행 중인 강의의 멘티</h1>
         </div>
-        <NoWrite text={"아직 멘티가 없습니다."} />
+        {openedMentee.length === 0 && (
+          <NoWrite text={"아직 멘티가 없습니다."} />
+        )}
         {openedMentee?.map((data, i) => {
           return (
             <DecideOpenOrClose
@@ -61,7 +63,9 @@ const MenteeList = ({ token, myMenteeClosed, myMenteeOpened }) => {
         <div className={styles.titleBox}>
           <h1 className={styles.title}>종료된 강의의 멘티</h1>
         </div>
-        <NoWrite text={"아직 멘티가 없습니다."} />
+        {closedMentee.length === 0 && (
+          <NoWrite text={"아직 멘티가 없습니다."} />
+        )}
         {closedMentee?.map((data, i) => {
           return (
             <DecideOpenOrClose

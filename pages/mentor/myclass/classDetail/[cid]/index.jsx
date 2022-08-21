@@ -117,7 +117,7 @@ const ClassDetail = ({ token, classData, reviewData, classID }) => {
           </div>
         </ModalWithBackground>
       )}
-      <TopBar  />
+      <TopBar />
       <div className={styles.imageBlock}>
         <Image
           src={
@@ -230,7 +230,9 @@ const ClassDetail = ({ token, classData, reviewData, classID }) => {
           </div>
           <div className={styles.reviews}>
             <h1 className={styles.reviewTitle}>강의 후기</h1>
-            <NoWrite text={"아직 강의 후기가 없습니다."} />
+            {reviewData.content.length == 0 && (
+              <NoWrite text={"아직 강의 후기가 없습니다."} />
+            )}
             {reviewData.content.map((data, i) => {
               return (
                 <ClassReview
