@@ -65,7 +65,7 @@ function BottomNavBar({ classData, token, params }) {
           if (!isNaN(res)) {
             router.push({
               pathname: `/common/chat/chatDetail/${res}`,
-              query: { other: params?.mentorId },
+              query: { other: classData.lectureMentor.mentorUserId },
             });
           } else {
             console.log("채팅 요청 실패");
