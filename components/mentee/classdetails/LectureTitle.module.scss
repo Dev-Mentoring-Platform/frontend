@@ -1,8 +1,9 @@
 @import "../../../styles/main.module.scss";
 .container {
-  width: 100%;
+  width: 375px;
   height: 261px;
   top: 326px;
+
   .main_box {
     display: flex;
     flex-direction: column;
@@ -147,7 +148,12 @@
 }
 
 .classIntroBlock {
-  padding: 20px;
+  width: 376px;
+  padding: 20px 20px 114px;
+
+  img {
+    width: 100%;
+  }
 }
 
 .reviewSection {
