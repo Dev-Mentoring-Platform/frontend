@@ -15,7 +15,7 @@ import { NameLogo } from "../../../components/common/icons/nameLogo";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     removeInfo();
@@ -33,7 +33,9 @@ const Login = () => {
         router.push("/mentee");
       }
     } else {
-      setError(true);
+      if (res.data.errorDetails[0] === "DisabledException")
+        setError("이메일 인증이 완료되지 않았습니다.");
+      else setError("아이디 또는 비밀번호가 일치하지 않습니다.");
     }
   };
 
@@ -65,13 +67,7 @@ const Login = () => {
           value={password}
           style={styles.loginInputBox}
         />
-        {error ? (
-          <span className={styles.failed}>
-            아이디 또는 비밀번호가 일치하지 않습니다.
-          </span>
-        ) : (
-          <></>
-        )}
+        {error && <span className={styles.failed}>{error}</span>}
         <BasicBtn
           text={"로그인 하기"}
           onClick={checkAccount}
