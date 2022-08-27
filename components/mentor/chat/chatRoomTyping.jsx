@@ -6,7 +6,6 @@ const ChatRoomTyping = ({ sendMsg }) => {
   const [msg, setMsg] = useState("");
   return (
     <div className={styles.typingSection}>
-      <IC_Plus width="20" height="20" />
       <div className={styles.inputBox}>
         <input
           type="text"
