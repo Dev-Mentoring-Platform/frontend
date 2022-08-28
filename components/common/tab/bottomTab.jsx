@@ -21,7 +21,7 @@ const BottomTab = ({ num, role }) => {
       >
         {num[0] === 0 ? <IC_Home /> : <IC_HomeFill />}
       </BottomTabElem>
-      <BottomTabElem url={"/mentee/board"} text={"자유게시판"}>
+      <BottomTabElem url={"/common/board"} text={"자유게시판"}>
         {num[1] === 0 ? <IC_Board /> : <IC_BoardFill />}
       </BottomTabElem>
       <BottomTabElem url={"/common/chat/chatList"} text={"채팅"}>

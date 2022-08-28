@@ -21,7 +21,7 @@ const BasicSelectBox = ({
           <option
             value={data}
             key={i}
-            selected={value == data ? "selected" : ""}
+            selected={value === data ? "selected" : ""}
           >
             {data}
           </option>

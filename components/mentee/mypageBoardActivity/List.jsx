@@ -10,7 +10,7 @@ function List({ boardList }) {
       {boardList.map((content) => (
         <li
           key={content.postId}
-          onClick={() => router.push(`/mentee/board/${content.postId}`)}
+          onClick={() => router.push(`/common/board/${content.postId}`)}
         >
           <h6>{content.title}</h6>
 

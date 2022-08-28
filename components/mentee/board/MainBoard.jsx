@@ -34,7 +34,9 @@ const MainBoard = ({ postData, updateLike }) => {
         </div>
       </div>
       <div className={styles.contentContainer}>
-        <div className={styles.requestLecture}>강의요청</div>
+        <div className={styles.requestLecture}>
+          {postData?.category === "LECTURE_REQUEST" ? "강의요청" : "잡담"}
+        </div>
         <span className={styles.title}>{postData.title}</span>
         <span className={styles.content}>{postData.content}</span>
       </div>

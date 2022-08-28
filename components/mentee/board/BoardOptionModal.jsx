@@ -10,7 +10,7 @@ function BoardOptionModal({ handleOptionModal, postId, token }) {
         <div className={styles.edit_box}>
           <div
             className={styles.review_edit}
-            onClick={() => router.push(`/mentee/board/editpost/${postId}`)}
+            onClick={() => router.push(`/common/board/editpost/${postId}`)}
           >
             게시글 수정
           </div>
@@ -20,7 +20,7 @@ function BoardOptionModal({ handleOptionModal, postId, token }) {
               const res = await deleteBoardPosts(token, postId);
               if (res.status == 200) {
                 alert("게시물이 삭제되었습니다.");
-                router.push(`/mentee/board`);
+                router.push(`/common/board`);
               } else {
                 console.log(res.data.message);
               }

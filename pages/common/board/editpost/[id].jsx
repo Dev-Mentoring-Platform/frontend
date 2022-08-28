@@ -5,6 +5,7 @@ import router from "next/router";
 import { editBoardPosts, getBoardDetail } from "../../../../core/api/Mentee";
 import {
   BasicInputBox,
+  BasicSelectBox,
   BottomBlueBtn,
   TopBar,
 } from "../../../../components/common";
@@ -41,11 +42,21 @@ const EditPost = ({ token, post_id, postDetail }) => {
     <section className={styles.changeInquiry}>
       <TopBar text={"글쓰기"} />
       <p className={styles.content}>
-        <BasicInputBox
-          type={"text"}
-          placeholder={"카테고리"}
-          value={inquiryInfo.category}
-          style={styles.titleBox}
+        <BasicSelectBox
+          arr={["강의요청", "잡담"]}
+          name={"문의 유형을 선택해주세요."}
+          onChange={(e) =>
+            setInquiryInfo({
+              ...inquiryInfo,
+              category:
+                e.target.value === "강의요청" ? "LECTURE_REQUEST" : "TALK",
+            })
+          }
+          otherClassName={styles.select}
+          selectStyles={styles.selectCon}
+          value={
+            inquiryInfo.category === "LECTURE_REQUEST" ? "강의요청" : "잡담"
+          }
         />
         <BasicInputBox
           type={"text"}
@@ -83,7 +94,7 @@ const EditPost = ({ token, post_id, postDetail }) => {
           const res = await editBoardPosts(token, post_id, inquiryInfo);
           if (res.status == 200) {
             setResult({ success: true, error: false, errorMsg: "" });
-            router.push(`/mentee/board/${post_id}`);
+            router.push(`/common/board/${post_id}`);
           } else
             setResult({
               success: false,

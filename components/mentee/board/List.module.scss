@@ -13,42 +13,55 @@
   li {
     width: 333px;
     height: 85px;
-    padding: 23px 10px;
+    padding: 21px 10px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 
     border-bottom: 1px solid #e8eaef;
-    h6 {
-      font-family: SF Pro Display;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 13px;
-      line-height: 16px;
-      /* identical to box height */
-
-      display: flex;
-      align-items: center;
-
-      color: #2c343f;
+    .userImage {
+      width: 52px;
+      height: 52px;
+      border-radius: 8px;
     }
-    .span_box {
+
+    .contentContainers {
       display: flex;
-      span {
-        margin-right: 13px;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      h6 {
         font-family: SF Pro Display;
         font-style: normal;
         font-weight: normal;
-        font-size: 11px;
-        line-height: 13px;
+        font-size: 13px;
+        line-height: 16px;
+        /* identical to box height */
+
         display: flex;
         align-items: center;
 
-        /* GRAY */
+        color: #2c343f;
+      }
+      .span_box {
+        display: flex;
+        span {
+          margin-right: 13px;
+          font-family: SF Pro Display;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 11px;
+          line-height: 13px;
+          display: flex;
+          align-items: center;
 
-        color: #434a58;
-        strong {
-          margin-left: 2px;
+          /* GRAY */
+
+          color: #434a58;
+          strong {
+            margin-left: 2px;
+          }
         }
       }
     }

@@ -9,7 +9,7 @@ function Header() {
       <div className={styles.rightPannel}>
         <button
           aria-label="글쓰기"
-          onClick={() => router.push("/mentee/board/writeBoard")}
+          onClick={() => router.push("/common/board/writeBoard")}
         >
           <IC_Edit />
         </button>

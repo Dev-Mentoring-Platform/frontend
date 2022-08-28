@@ -10,13 +10,14 @@ import { uploadPost } from "../../../core/api/Mentee";
 import styles from "./writeboard.module.scss";
 import * as cookie from "cookie";
 import router from "next/router";
-import { getBoardCategory } from "../../../core/api/Mentee/board";
+import { getBoardCategory } from "../../../core/api/mentee/board";
 
+// "LECTURE_REQUEST" , "TALK"
 const WriteBoard = ({ token, categories }) => {
   const [inquiryInfo, setInquiryInfo] = useState({
     content: "",
     title: "",
-    category: "LECTURE_REQUEST",
+    category: "강의요청",
     image: "",
   });
   const [errMsg, setErrMsg] = useState("");
@@ -45,10 +46,14 @@ const WriteBoard = ({ token, categories }) => {
       <TopBar text={"글쓰기"} />
       <p className={styles.content}>
         <BasicSelectBox
-          arr={categories}
+          arr={["강의요청", "잡담"]}
           name={"문의 유형을 선택해주세요."}
           onChange={(e) =>
-            setInquiryInfo({ ...inquiryInfo, category: e.target.value })
+            setInquiryInfo({
+              ...inquiryInfo,
+              category:
+                e.target.value === "강의요청" ? "LECTURE_REQUEST" : "TALK",
+            })
           }
           otherClassName={styles.select}
           selectStyles={styles.selectCon}
@@ -87,7 +92,7 @@ const WriteBoard = ({ token, categories }) => {
           const res = await uploadPost(token, inquiryInfo);
           if (res.status == 201) {
             setResult({ success: true, error: false, errorMsg: "" });
-            router.push(`/mentee/board`);
+            router.push(`/common/board`);
           } else
             setResult({
               success: false,

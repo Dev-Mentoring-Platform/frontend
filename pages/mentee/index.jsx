@@ -18,7 +18,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import Chip from "@mui/material/Chip";
 import { getLecture } from "../../core/api/Mentee";
 import { getUserRoleType } from "../../core/api/Login";
-import { useDebounceEffect } from "./board";
+import { useDebounceEffect } from "../common/board";
 
 const filters = ["개발 분야", "수업 방식", "레벨"];
 const subjectsList = [
