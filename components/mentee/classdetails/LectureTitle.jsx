@@ -47,7 +47,6 @@ function LectureTitle({ token, classData, reviewData, role }) {
               onClick={() => setSelect(false)}
             >{`${classData.reviewCount} 개의 후기`}</span>
           </div>
-          <div className={styles.content}>{renderHTML(classData?.content)}</div>
         </div>
         <LecturePrice classData={classData} />
         <span className={styles.line} />

@@ -147,14 +147,18 @@
       display: flex;
       align-items: center;
 
-      span {
+      .group {
         @include text-style(14px, $light_gray, 500);
         width: 30px;
       }
 
       h1 {
         @include text-style(20px, $sub, 500);
-        margin-left: 10px;
+        margin: 0 10px;
+      }
+
+      .priceDetail {
+        @include text-style(14px, $light_gray, 500);
       }
     }
   }

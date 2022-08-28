@@ -2,12 +2,12 @@ import React from "react";
 import styles from "./noticedetail.module.scss";
 import * as cookie from "cookie";
 import { getNoticeDetail } from "../../../core/api/Mentee";
-import TopBar from "../../../components/mentee/TopBar";
+import { TopBar } from "../../../components/common";
 
 const NoticeDetail = ({ notice }) => {
   return (
     <main className={styles.main}>
-      <TopBar title="" />
+      <TopBar />
       <div className={styles.line}>
         <span>{notice.content}</span>
       </div>

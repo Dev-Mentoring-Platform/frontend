@@ -47,9 +47,22 @@ const ClassCard = ({ classDetail }) => {
         </div>
         <div className={styles.informationBox}>
           <div className={styles.tags}>
-            <div className={classNames(styles.tag)}>
-              {classDetail?.systems[0]?.type}
-            </div>
+            {classDetail.systems.length === 2 ? (
+              <>
+                <div className={classNames(styles.tag)}>
+                  {classDetail.systems[0].type}
+                </div>
+                <div className={classNames(styles.tag)}>
+                  {classDetail.systems[1].type}
+                </div>
+              </>
+            ) : (
+              <>
+                <div className={classNames(styles.tag)}>
+                  {classDetail.systems[0].type}
+                </div>
+              </>
+            )}
             <div className={classNames(styles.tag)}>
               {transGroup(lecturePrice?.isGroup)}
             </div>

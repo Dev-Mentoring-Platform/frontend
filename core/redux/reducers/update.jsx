@@ -90,7 +90,6 @@ const initialState = {
     GnumOfClass: 0,
     online: "off",
     offline: "off",
-    discuss: "off",
     personal: "off",
     group: "off",
     groupMax: 0,

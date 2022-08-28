@@ -5,7 +5,6 @@ import { IC_HeartRedFill, IC_Star } from "../../../icons";
 import { useRouter } from "next/router";
 import { LevelToKor } from "../../../utils/class/classLevel";
 function ContentList({ wish }) {
-  console.log(wish);
   const { lecture } = wish;
   const router = useRouter();
   return (

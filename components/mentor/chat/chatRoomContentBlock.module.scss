@@ -47,6 +47,10 @@
     margin-right: 12px;
   }
 
+  img {
+    border-radius: 50%;
+  }
+
   .menteeChat {
     @include flexBox(start, start);
     flex-direction: column;

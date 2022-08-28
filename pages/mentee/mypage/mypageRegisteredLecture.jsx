@@ -30,7 +30,7 @@ const MypageRegisteredLecture = ({
 }) => {
   return (
     <section className={styles.LectureListSection}>
-      <TopBar text={"구매한 강의"} onClick={() => router.back()} />
+      <TopBar text={"구매한 강의"} />
 
       <div className={styles.finished}>
         <div className={styles.titleBox}>

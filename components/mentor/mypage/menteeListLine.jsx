@@ -7,16 +7,23 @@ import styles from "./menteeListLine.module.scss";
 import {
   IC_BubbleStarOutline,
   IC_ChevronDownS,
+  IC_PersonBlue,
   IC_TalkDots,
+  IMG_LectureSample,
 } from "../../../icons";
 import { basicBtnStyle } from "../../common";
 import { requestChatToMentee } from "../../../core/api/Chat";
+import { getMenteeInfo } from "../../../core/api/Mentee";
 
 const MenteeListLine = ({ data, setOpen }) => {
   return (
     <button type="button" className={styles.menteeLine} onClick={setOpen}>
       <div className={styles.profileImg}>
-        <Image src={"/samples/mentee.png"} width={32} height={32} />
+        {data.img ? (
+          <Image src={data.img} width={32} height={32} />
+        ) : (
+          <IC_PersonBlue width="32" height="32" />
+        )}
       </div>
       <span className={styles.menteeName}>{data?.nickname} 멘티</span>
       <IC_ChevronDownS className={styles.arrowBtn} />
@@ -39,20 +46,20 @@ const MenteeListBlock = ({ token, data, setOpen, setModal, type }) => {
   }, []);
 
   useEffect(() => {
-    if (menteeLecture[0]?.lecture.lecturePrice.isGroup) {
-      setSystems(
-        menteeLecture[0]?.lecture.systemTypes[0].name + " / " + "그룹"
-      );
-    } else {
-      setSystems(menteeLecture[0]?.lecture.systemTypes[0].name + " / " + "1:1");
-    }
+    if (menteeLecture[0]?.lecture.lecturePrice.isGroup)
+      setSystems(menteeLecture[0]?.lecture.systems[0].name + " / " + "그룹");
+    else setSystems(menteeLecture[0]?.lecture.systems[0].name + " / " + "1:1");
   }, [menteeLecture]);
 
   return (
     <div className={styles.menteeBlock}>
       <button type="button" className={styles.menteeLine} onClick={setOpen}>
         <div className={styles.profileImg}>
-          <Image src={"/samples/mentee.png"} width={32} height={32} />
+          {data.img ? (
+            <Image src={data.img} width={32} height={32} />
+          ) : (
+            <IC_PersonBlue width="32" height="32" />
+          )}
         </div>
         <span className={styles.menteeName}>{data?.nickname} 멘티</span>
         <IC_ChevronDownS className={styles.arrowBtnUp} />
@@ -60,7 +67,15 @@ const MenteeListBlock = ({ token, data, setOpen, setModal, type }) => {
 
       <div className={styles.lectureInfo}>
         <div className={styles.lectureImg}>
-          <Image src={"/samples/lecture.png"} width={84} height={84} />
+          {menteeLecture[0]?.lecture.thumbnail ? (
+            <Image
+              src={menteeLecture[0]?.lecture.thumbnail}
+              width={84}
+              height={84}
+            />
+          ) : (
+            <IMG_LectureSample width="84" height="84" />
+          )}
         </div>
         <div className={styles.lectureInfoText}>
           <h1 className={styles.title}>{menteeLecture[0]?.lecture?.title}</h1>
@@ -148,16 +163,29 @@ const MenteeListBlock = ({ token, data, setOpen, setModal, type }) => {
 
 const DecideOpenOrClose = ({ data, token, setModal, type }) => {
   const [open, setOpen] = useState(false);
+  const [img, setImg] = useState("");
+
+  useEffect(() => {
+    const getMenteeImg = async () => {
+      const res = await getMenteeInfo(data.menteeId);
+      setImg(res.user.image);
+    };
+    getMenteeImg();
+  }, []);
+
   return open ? (
     <MenteeListBlock
       token={token}
-      data={data}
+      data={{ ...data, img: img }}
       setOpen={() => setOpen(!open)}
       setModal={setModal}
       type={type}
     />
   ) : (
-    <MenteeListLine data={data} setOpen={() => setOpen(!open)} />
+    <MenteeListLine
+      data={{ ...data, img: img }}
+      setOpen={() => setOpen(!open)}
+    />
   );
 };
 

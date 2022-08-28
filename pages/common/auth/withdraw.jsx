@@ -21,20 +21,12 @@ const WithDraw = ({ token, role }) => {
   const [select, setSelect] = useState("");
   const [password, setPassword] = useState("");
 
-  const goBack = () => {
-    return role === "ROLE_MENTEE"
-      ? router.push("/mentee/mypage/myAccount")
-      : router.push("/mentor/mypage");
-  };
-
   const handleWithDraw = async () => {
     const res = await resignMembership(token, {
       password,
       reason: select,
       reasonId: 0,
     });
-
-    console.log(res);
   };
 
   const handlePassword = (e) => {
@@ -46,7 +38,7 @@ const WithDraw = ({ token, role }) => {
   };
   return (
     <section className={styles.deleteAccount}>
-      <TopBar text={"회원 탈퇴"} onClick={goBack} />
+      <TopBar text={"회원 탈퇴"} />
       <section className={styles.textSection}>
         <strong className={styles.caution}>
           탈퇴 시 현재 구매한 강의 및 관심 강의 목록이 모두 사라집니다. 탈퇴 후

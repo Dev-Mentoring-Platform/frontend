@@ -91,12 +91,7 @@ const edit = ({ token, editId, viewLecture }) => {
         )}
 
         <section className={styles.topSection}>
-          <TopBar
-            text={"후기 수정"}
-            onClick={() => {
-              router.back();
-            }}
-          />
+          <TopBar text={"후기 수정"} />
         </section>
         <section className={styles.contentSection}>
           <article className={styles.lectureInfoSection}>
@@ -104,7 +99,9 @@ const edit = ({ token, editId, viewLecture }) => {
               <img
                 className={styles.lectureInfoImg}
                 src={
-                  reviews.thumbnail ? reviews.thumbnail : "/samples/lecture.png"
+                  reviews.lecture?.thumbnail
+                    ? reviews.lecture?.thumbnail
+                    : "/samples/lecture.png"
                 }
               />
               <div className={styles.lectureInfoText}>

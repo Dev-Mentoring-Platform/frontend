@@ -16,33 +16,28 @@ import { signIn } from "next-auth/react";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     removeInfo();
   }, []);
 
   const checkAccount = async () => {
-    const response = await signIn("email-password-credential", {
-      username,
-      password,
-      redirect: false,
-    });
-    console.log("response=", response);
-
-    // const res = await login(username, password);
-    // if (res.status == 200) {
-    //   const role = await getUserRoleType(res.headers["x-access-token"]);
-    //   cookieForAuth(res, role);
-    //   // if (role.loginType === "ROLE_MENTOR") {
-    //   //   router.push("/mentor/myclass/myClassList");
-    //   // }
-    //   // if (role.loginType === "ROLE_MENTEE") {
-    //   //   router.push("/mentee");
-    //   // }
-    // } else {
-    //   setError(true);
-    // }
+    const res = await login(username, password);
+    if (res.status == 200) {
+      const role = await getUserRoleType(res.headers["x-access-token"]);
+      cookieForAuth(res, role);
+      if (role.loginType === "ROLE_MENTOR") {
+        router.push("/mentor/myclass/myClassList");
+      }
+      if (role.loginType === "ROLE_MENTEE") {
+        router.push("/mentee");
+      }
+    } else {
+      if (res.data.errorDetails[0] === "DisabledException")
+        setError("이메일 인증이 완료되지 않았습니다.");
+      else setError("아이디 또는 비밀번호가 일치하지 않습니다.");
+    }
   };
 
   const onChangeUsername = (e) => {
@@ -73,13 +68,7 @@ const Login = () => {
           value={password}
           style={styles.loginInputBox}
         />
-        {error ? (
-          <span className={styles.failed}>
-            아이디 또는 비밀번호가 일치하지 않습니다.
-          </span>
-        ) : (
-          <></>
-        )}
+        {error && <span className={styles.failed}>{error}</span>}
         <BasicBtn
           text={"로그인 하기"}
           onClick={checkAccount}
@@ -106,13 +95,13 @@ const Login = () => {
       <div className={styles.snsCon}>
         <p>SNS 로그인</p>
         <div className={styles.snsBtn}>
-          <a href="/oauth2/authorization/google" target="_blank">
+          <a href="/oauth2/authorization/google">
             <IC_Google />
           </a>
-          <a href="/oauth2/authorization/naver" target="_blank">
+          <a href="/oauth2/authorization/naver">
             <IC_Naver />
           </a>
-          <a href="/oauth2/authorization/kakao" target="_blank">
+          <a href="/oauth2/authorization/kakao">
             <IC_Kakao />
           </a>
         </div>

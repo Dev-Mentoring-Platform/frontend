@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "./agreeBlock.module.scss";
 import { BasicCheckBox } from "../../common";
+import router from "next/router";
 
 const AgreeBlock = ({ datas }) => {
   const { agree, setAgree } = datas;
@@ -29,16 +30,26 @@ const AgreeBlock = ({ datas }) => {
           });
         }}
       />
-      <BasicCheckBox
-        id={"agree1"}
-        text={"[필수] 서비스 이용 약관에 동의합니다. "}
-        checkBoxStyle={styles.agreeCheck}
-        textStyle={styles.agreeText}
-        value={agree.one}
-        onChange={() => {
-          setAgree({ ...agree, one: !agree.one });
-        }}
-      />
+      <div className={styles.service}>
+        <BasicCheckBox
+          id={"agree1"}
+          text={"[필수] 서비스 이용 약관에 동의합니다. "}
+          checkBoxStyle={styles.agreeCheck}
+          textStyle={styles.agreeText}
+          value={agree.one}
+          onChange={() => {
+            setAgree({ ...agree, one: !agree.one });
+          }}
+        />
+        <p
+          className={styles.serviceText}
+          onClick={() => {
+            router.push("/common/auth/serviceContents");
+          }}
+        >
+          약관 살펴보기
+        </p>
+      </div>
       <BasicCheckBox
         id={"agree2"}
         text={"[필수] 개인 정보 수집 및 이용에 동의합니다. "}

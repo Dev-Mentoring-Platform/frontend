@@ -22,7 +22,8 @@ const ChatPreview = ({ chatData, othersRole }) => {
 
   const nickname =
     othersRole == "멘티" ? chatData.menteeNickname : chatData.mentorNickname;
-  const userId = othersRole == "멘티" ? chatData.menteeId : chatData.mentorId;
+  const userId =
+    othersRole == "멘티" ? chatData.menteeUserId : chatData.mentorUserId;
   const userImg =
     othersRole == "멘티" ? chatData.menteeImage : chatData.mentorImage;
 

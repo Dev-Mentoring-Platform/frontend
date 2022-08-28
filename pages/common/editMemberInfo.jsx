@@ -2,18 +2,17 @@ import { useEffect, useState } from "react";
 import router from "next/router";
 import { BottomBlueBtn, TopBar } from "../../components/common";
 import styles from "./auth/signup.module.scss";
-import BasicDataBlock from "../../components/mentor/signup/basicDataBlock";
-import AddrBlock from "../../components/mentor/signup/addrBlock";
 import * as cookie from "cookie";
 import { editMyInfo } from "../../core/api/User/editMyInfo";
 import EditInfo from "../../components/mentee/profileEdit/EditInfo";
 import EditInfoErr from "../../utils/errorHandling/editInfoErr";
 import { getMyInfo } from "../../core/api/User";
+import BasicDataBlock from "../../components/mentor/signup/basicDataBlock";
+import AddrBlockEdit from "../../components/mentor/signup/addrBlockEdit";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const role = cookie.parse(context.req.headers.cookie).role;
-
   const userInfo = await getMyInfo(token);
 
   return {
@@ -25,7 +24,7 @@ export const getServerSideProps = async (context) => {
   };
 };
 
-const EditMemberInfo = ({ token, role, userInfo }) => {
+const EditMemberInfo = ({ token, userInfo }) => {
   const [user, setUser] = useState({
     nickname: userInfo?.nickname,
     email: userInfo?.username,
@@ -35,42 +34,25 @@ const EditMemberInfo = ({ token, role, userInfo }) => {
   });
 
   const zoneSplit = userInfo.zone.split(" ");
-  console.log(zoneSplit);
   const [addr, setAddr] = useState({
-    state: [],
-    sigungu: [],
-    dong: [],
     statePick: zoneSplit[0],
     sigunguPick: zoneSplit[1],
     dongPick: zoneSplit[2],
   });
-
-  const [agree, setAgree] = useState({
-    all: false,
-    one: false,
-    two: false,
-    three: false,
-  });
+  const [newAddr, setNewAddr] = useState(addr);
 
   const [checkError, setCheckError] = useState({
     isError: false,
     errorMsg: "",
   });
 
-  const [dupCheck, setDupCheck] = useState({
-    nicknameDupSuccess: false,
-    nicknameDupError: false,
-    emailDupSuccess: false,
-    emailDupError: false,
-  });
-
   const saveChanges = async () => {
     const params = {
+      nickname: user.nickname,
       birthYear: user.birth,
       gender: user.gender,
-      nickname: user.nickname,
       phoneNumber: user.phone,
-      zone: `${addr.statePick} ${addr.sigunguPick} ${addr.dongPick}`,
+      zone: `${newAddr.statePick} ${newAddr.sigunguPick} ${newAddr.dongPick}`,
     };
 
     try {
@@ -81,45 +63,25 @@ const EditMemberInfo = ({ token, role, userInfo }) => {
     }
   };
 
-  const goBack = () => {
-    return role === "ROLE_MENTEE"
-      ? router.push("/mentee/mypage/myAccount")
-      : router.push("/mentor/mypage");
-  };
-
   useEffect(() => {
-    EditInfoErr({ dupCheck, user }, setCheckError);
-  }, [user, dupCheck]);
-
-  useEffect(() => {
-    setDupCheck({
-      ...dupCheck,
-      nicknameDupSuccess: false,
-      nicknameDupError: false,
-    });
-  }, [user.nickname]);
-
-  useEffect(() => {
-    setDupCheck({
-      ...dupCheck,
-      emailDupSuccess: false,
-      emailDupError: false,
-    });
-  }, [user.email]);
+    EditInfoErr(user, setCheckError);
+  }, [user]);
 
   return (
     <section className={styles.signUp01}>
-      <TopBar text={"회원정보 수정"} onClick={goBack} />
+      <TopBar text={"회원정보 수정"} />
       <div className={styles.contentSection}>
-        <EditInfo
-          datas={{ user, setUser, dupCheck, setDupCheck, checkError }}
-        />
+        <EditInfo datas={{ user, setUser, addr, setAddr, checkError }} />
         <div className={styles.selectSection}>
           <BasicDataBlock datas={{ user, setUser }} />
-          <AddrBlock datas={{ addr, setAddr }} />
+          <AddrBlockEdit
+            addr={addr}
+            newAddr={newAddr}
+            setNewAddr={setNewAddr}
+            edit={true}
+          />
         </div>
       </div>
-
       <BottomBlueBtn
         text={"저장"}
         disabled={checkError.isError}

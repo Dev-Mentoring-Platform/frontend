@@ -26,7 +26,6 @@ function BottomNavBar({ classData, token, params }) {
 
   const handlePicks = async () => {
     const res = await updatePicks(token, params);
-    console.log("res=====================", res);
 
     if (res.data) {
       setLiked(true);
@@ -66,7 +65,7 @@ function BottomNavBar({ classData, token, params }) {
           if (!isNaN(res)) {
             router.push({
               pathname: `/common/chat/chatDetail/${res}`,
-              query: { other: params?.mentorId },
+              query: { other: classData.lectureMentor.mentorUserId },
             });
           } else {
             console.log("채팅 요청 실패");

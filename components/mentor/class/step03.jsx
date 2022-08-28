@@ -103,12 +103,6 @@ const Step03 = ({
               select={form.offline}
               onClick={handleChange("offline")}
             />
-            <EllipseBtn
-              element={"장소 협의 가능"}
-              id={"discuss"}
-              select={form.discuss}
-              onClick={handleChange("discuss")}
-            />
           </div>
         </div>
 
