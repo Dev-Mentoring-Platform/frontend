@@ -11,7 +11,6 @@ import { login, getUserRoleType } from "../../../core/api/Login";
 import { cookieForAuth, removeInfo } from "../../../utils/cookie";
 import { IC_Google, IC_Kakao, IC_Logo, IC_Naver } from "../../../icons";
 import { NameLogo } from "../../../components/common/icons/nameLogo";
-import { signIn } from "next-auth/react";
 
 const Login = () => {
   const [username, setUsername] = useState("");
