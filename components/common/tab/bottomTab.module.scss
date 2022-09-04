@@ -2,6 +2,7 @@
 .bottomTab {
   @include pos(fixed, false, false, 0, 50%);
   @include flexBox(between, center);
+  z-index: 2;
   width: 375px;
   padding: 13px 17.5px;
   background-color: $white;
