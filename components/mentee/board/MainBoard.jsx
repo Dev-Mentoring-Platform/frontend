@@ -1,7 +1,12 @@
 import Image from "next/image";
 import React from "react";
 
-import { IC_CommentBubble, IC_HeartRedFill, IC_Report } from "../../../icons";
+import {
+  IC_CommentBubble,
+  IC_HeartEmpty,
+  IC_HeartRedFill,
+  IC_Report,
+} from "../../../icons";
 import styles from "./MainBoard.module.scss";
 
 const MainBoard = ({ postData, updateLike }) => {
@@ -43,7 +48,7 @@ const MainBoard = ({ postData, updateLike }) => {
       <div className={styles.buttonContainer}>
         <div className={styles.leftSide}>
           <button className={styles.likesButton} onClick={updateLike}>
-            <IC_HeartRedFill />
+            {postData.liked ? <IC_HeartRedFill /> : <IC_HeartEmpty />}
             {`좋아요 ${postData.likingCount}`}
           </button>
           <button className={styles.commentsButton}>
