@@ -111,6 +111,7 @@ const Home = ({ classes, role, token, user }) => {
         subjects: subjects.filter((el) => el !== "전체"),
         systemType: type,
         title: search,
+        _zone: user.zone,
       });
 
       setClassData(classData.concat(...showMore.content));
@@ -133,6 +134,7 @@ const Home = ({ classes, role, token, user }) => {
       subjects: subjects.filter((el) => el !== "전체"),
       systemType: type,
       title: search,
+      _zone: user.zone,
     };
     const newLecture = await getLecture(token, data);
     setClassData(newLecture.content);
@@ -149,6 +151,7 @@ const Home = ({ classes, role, token, user }) => {
 
     const data = {
       page: 1,
+      _zone: user.zone,
     };
     const newLecture = await getLecture(token, data);
     setClassData(newLecture.content);
@@ -162,6 +165,7 @@ const Home = ({ classes, role, token, user }) => {
       subjects: subjects.filter((el) => el !== "전체"),
       systemType: type,
       title: search,
+      _zone: user.zone,
     };
     const newLecture = await getLecture(token, data);
     setClassData(newLecture.content);
@@ -381,8 +385,11 @@ const Home = ({ classes, role, token, user }) => {
 export const getServerSideProps = async (context) => {
   const parsedCookies = cookie.parse(context.req.headers.cookie);
   const role = parsedCookies.role;
-  const classes = await getLecture(parsedCookies.accessToken, { page: 1 });
   const user = await getUserRoleType(parsedCookies.accessToken);
+  const classes = await getLecture(parsedCookies.accessToken, {
+    page: 1,
+    _zone: user.zone,
+  });
 
   return {
     props: {
