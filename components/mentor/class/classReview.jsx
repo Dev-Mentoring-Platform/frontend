@@ -6,13 +6,18 @@ import { BasicBtn, basicBtnStyle } from "../../common";
 import { deleteMentorReview } from "../../../core/api/Lecture";
 import RefreshPage from "../../../utils/refreshPage";
 import { Rating } from "./rating";
+import { IC_PersonBlue } from "../../../icons";
 
 const MenteeReview = ({ data, onClick }) => {
   return (
     <section className={styles.menteeReviewSection} onClick={onClick}>
       <div className={styles.menteeProfileBlock}>
         <div className={styles.profileImg}>
-          <Image src={data?.userImage} width={32} height={32} />
+          {data?.userImage ? (
+            <Image src={data?.userImage} width={32} height={32} />
+          ) : (
+            <IC_PersonBlue width={32} height={32} />
+          )}
         </div>
 
         <div className={styles.alignColumn}>
@@ -33,11 +38,11 @@ const MentorReview = ({ token, cid, mentee, data, role }) => {
     <section className={styles.mentorReviewSection}>
       <div className={styles.mentorProfileBlock}>
         <div className={styles.profileImg}>
-          <Image
-            src={data?.userImage ? data?.userImage : "/samples/lecture.png"}
-            width={32}
-            height={32}
-          />
+          {data?.userImage ? (
+            <Image src={data?.userImage} width={32} height={32} />
+          ) : (
+            <IC_PersonBlue width={32} height={32} />
+          )}
         </div>
         {role === "ROLE_MENTEE" ? (
           <div></div>
