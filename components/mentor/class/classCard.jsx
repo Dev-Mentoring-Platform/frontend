@@ -23,7 +23,7 @@ const ClassCard = ({ data }) => {
     >
       <div className={styles.classCardImage}>
         <Image
-          src={data.thumbnail ? data.thumbnail : "/samples/lecture.png"}
+          src={data.thumbnail || "/samples/lecture.png"}
           width="330px"
           height="136px"
           alt=""

@@ -8,6 +8,7 @@ import MentorLecture from "./MentorLecture";
 import { useState, useEffect } from "react";
 import router from "next/router";
 import MentorReview from "./MentorReview";
+import { IC_PersonBlue } from "../../../icons";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -51,13 +52,17 @@ const MentorCon = ({ mentorData, lectureListData, params, token }) => {
       <section className={styles.basicInfo}>
         <article className={styles.mentorInfoCon}>
           <div className={styles.mentorImgInfo}>
-            <Image
-              src={user.image ? user.image : "/samples/lecture.png"}
-              className={styles.mentorImg}
-              alt={user.name}
-              width={"88px"}
-              height={"88px"}
-            />
+            {user.image ? (
+              <Image
+                src={user.image}
+                className={styles.mentorImg}
+                alt={user.name}
+                width={"88px"}
+                height={"88px"}
+              />
+            ) : (
+              <IC_PersonBlue width={88} height={88} />
+            )}
           </div>
 
           <div>

@@ -10,7 +10,7 @@ function LectureImage({ classData }) {
   return (
     <div className={classNames(styles.imageBlock, styles.pointer)}>
       <Image
-        src={classData.thumbnail ? classData.thumbnail : "/samples/lecture.png"}
+        src={classData.thumbnail || "/samples/lecture.png"}
         width={375}
         height={277}
         alt="thumbnail"

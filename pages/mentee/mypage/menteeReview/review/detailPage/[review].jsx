@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import styles from "./detailReview.module.scss";
 import { TopBar } from "../../../../../../components/common";
-import { IC_Menu } from "../../../../../../icons";
+import { IC_Menu, IC_PersonBlue } from "../../../../../../icons";
 import router from "next/router";
 import classNames from "classnames";
 import { Rating } from "../../../../../../components/mentor/class/rating";
@@ -77,9 +77,7 @@ const detailReview = ({ token, lecturesCon, review }) => {
           <div className={styles.detailInfo}>
             <img
               className={styles.detailReviewImg}
-              src={
-                lecture.thumbnail ? lecture.thumbnail : "/samples/lecture.png"
-              }
+              src={lecture.thumbnail || "/samples/lecture.png"}
             />
             <div>
               <p>{lecture.title}</p>
@@ -104,14 +102,14 @@ const detailReview = ({ token, lecturesCon, review }) => {
           <div className={styles.detailReviewCon}>
             <div className={styles.menteeCon}>
               <div className={styles.menteeInfo}>
-                <img
-                  className={styles.menteeImg}
-                  src={
-                    lecturesCon.userImage
-                      ? lecturesCon.userImage
-                      : "/samples/lecture.png"
-                  }
-                />
+                {lecturesCon.userImage ? (
+                  <img
+                    className={styles.menteeImg}
+                    src={lecturesCon.userImage}
+                  />
+                ) : (
+                  <IC_PersonBlue className={styles.menteeImg} />
+                )}
                 <div className={styles.menteeName}>
                   <p>{lecturesCon.userNickname}</p>
                   <Rating

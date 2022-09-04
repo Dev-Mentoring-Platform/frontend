@@ -5,6 +5,7 @@ import { Rating, RatingBig } from "../../../components/mentor/class/rating";
 import Image from "next/image";
 import classNames from "classnames";
 import router from "next/router";
+import { IC_PersonBlue } from "../../../icons";
 
 const MentorReview = ({ params, token }) => {
   const [page, setPage] = useState(1);
@@ -123,17 +124,17 @@ const MentorReview = ({ params, token }) => {
               >
                 <div className={styles.reviewerInfo}>
                   <div className={styles.reviewer}>
-                    <Image
-                      src={
-                        review.userImage
-                          ? review.userImage
-                          : "/samples/lecture.png"
-                      }
-                      alt={review.userImage}
-                      width={"32px"}
-                      height={"32px"}
-                      className={styles.reviewerImg}
-                    />
+                    {review.userImage ? (
+                      <Image
+                        src={review.userImage}
+                        alt={review.userImage}
+                        width={"32px"}
+                        height={"32px"}
+                        className={styles.reviewerImg}
+                      />
+                    ) : (
+                      <IC_PersonBlue width={32} height={32} />
+                    )}
                     <div className={styles.reviewScore}>
                       <p className={styles.userNickname}>
                         {review.userNickname}

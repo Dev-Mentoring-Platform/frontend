@@ -98,11 +98,7 @@ const edit = ({ token, editId, viewLecture }) => {
             <div className={styles.lectureInfo}>
               <img
                 className={styles.lectureInfoImg}
-                src={
-                  reviews.lecture?.thumbnail
-                    ? reviews.lecture?.thumbnail
-                    : "/samples/lecture.png"
-                }
+                src={reviews.lecture?.thumbnail || "/samples/lecture.png"}
               />
               <div className={styles.lectureInfoText}>
                 <p className={styles.lectureTitle}>{lecture?.title}</p>

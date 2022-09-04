@@ -64,9 +64,7 @@ const WriteMenteeReview = ({ menteeReviews, token }) => {
                         <img
                           className={styles.reviewImg}
                           src={
-                            review.lecture.thumbnail
-                              ? review.lecture.thumbnail
-                              : "/samples/lecture2.jpg"
+                            review.lecture.thumbnail || "/samples/lecture2.jpg"
                           }
                           alt={review.lecture.lectureTitle}
                         />

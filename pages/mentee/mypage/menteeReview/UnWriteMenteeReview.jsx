@@ -36,11 +36,7 @@ const UnWriteMenteeReview = ({ unreviewedMentee }) => {
                     <div className={styles.review}>
                       <img
                         className={styles.reviewImg}
-                        src={
-                          unWriteCon.thumbnail
-                            ? unWriteCon.thumbnail
-                            : "/samples/lecture2.jpg"
-                        }
+                        src={unWriteCon.thumbnail || "/samples/lecture2.jpg"}
                       />
 
                       <div className={styles.reviewCnt}>

@@ -32,11 +32,7 @@ const ClassCard = ({ classDetail }) => {
           <Image
             layout="fill"
             objectFit="cover"
-            src={
-              classDetail.thumbnail
-                ? classDetail.thumbnail
-                : "/samples/lecture.png"
-            }
+            src={classDetail.thumbnail || "/samples/lecture.png"}
             alt={title}
           />
           <div className={styles.labels}>
