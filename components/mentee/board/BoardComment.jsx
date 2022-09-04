@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { deleteBoardComments } from "../../../core/api/Mentee";
+import { IC_PersonBlue } from "../../../icons";
 import styles from "./BoardComment.module.scss";
 
 const BoardComment = ({ token, content, myInfo }) => {
@@ -9,15 +10,17 @@ const BoardComment = ({ token, content, myInfo }) => {
       <div className={styles.profileContainer}>
         <div className={styles.leftPannel}>
           <div className={styles.imageContainer}>
-            <Image
-              src={
-                content.userImage ? content.userImage : "/samples/lecture.png"
-              }
-              className={styles.image}
-              alt=""
-              width="32px"
-              height="32px"
-            />
+            {content.userImage ? (
+              <Image
+                src={content.userImage}
+                className={styles.image}
+                alt=""
+                width="32px"
+                height="32px"
+              />
+            ) : (
+              <IC_PersonBlue width={32} height={32} />
+            )}
           </div>
         </div>
         <div className={styles.rightPannel}>

@@ -14,7 +14,7 @@ const LectureBlock = ({ lecture, approved, token }) => {
       <div className={styles.lectureInfo}>
         <div className={styles.lectureImg}>
           <Image
-            src={lecture.thumbnail ? lecture.thumbnail : "/samples/lecture.png"}
+            src={lecture.thumbnail || "/samples/lecture.png"}
             width={84}
             height={84}
             alt="thumbnail"

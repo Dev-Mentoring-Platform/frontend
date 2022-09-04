@@ -28,6 +28,7 @@ import {
 } from "../../../../../core/api/Mentor/openLecture";
 import RefreshPage from "../../../../../utils/refreshPage";
 import NoWrite from "../../../../../components/mentee/NoWrite";
+import { IC_PersonBlue } from "../../../../../icons";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -120,9 +121,7 @@ const ClassDetail = ({ token, classData, reviewData, classID }) => {
       <TopBar />
       <div className={styles.imageBlock}>
         <Image
-          src={
-            classData.thumbnail ? classData.thumbnail : "/samples/lecture.png"
-          }
+          src={classData.thumbnail || "/samples/lecture.png"}
           width={375}
           height={277}
         />
@@ -155,16 +154,16 @@ const ClassDetail = ({ token, classData, reviewData, classID }) => {
           <span>{LevelToKor(classData.difficulty)}</span>
         </div>
         <div className={styles.mentorProfileBlock}>
-          <Image
-            src={
-              classData.lectureMentor.image
-                ? classData.lectureMentor.image
-                : "/samples/mentor.svg"
-            }
-            width={72}
-            height={72}
-            className={styles.mentorImg}
-          />
+          {classData.lectureMentor.image ? (
+            <Image
+              src={classData.lectureMentor.image}
+              width={72}
+              height={72}
+              className={styles.mentorImg}
+            />
+          ) : (
+            <IC_PersonBlue width={72} height={72} />
+          )}
           <span className={styles.mentorName}>
             <span className={styles.role}>멘토 </span>
             {classData.lectureMentor.nickname}

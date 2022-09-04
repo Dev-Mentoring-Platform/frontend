@@ -103,7 +103,7 @@ const MenteeListBlock = ({ token, data, setOpen, setModal, type }) => {
                 if (!isNaN(res)) {
                   router.push({
                     pathname: `/common/chat/chatDetail/${res}`,
-                    query: { other: data?.menteeId },
+                    query: { other: data?.userId },
                   });
                 } else {
                   console.log("채팅 요청 실패");

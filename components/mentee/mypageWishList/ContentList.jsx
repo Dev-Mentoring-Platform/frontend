@@ -21,7 +21,7 @@ function ContentList({ wish }) {
       >
         <div className={styles.image_box}>
           <Image
-            src={wish.thumbnail ? wish.thumbnail : "/samples/lecture.png"}
+            src={wish.thumbnail || "/samples/lecture.png"}
             width={"160px"}
             height={"140px"}
             layout="fill"

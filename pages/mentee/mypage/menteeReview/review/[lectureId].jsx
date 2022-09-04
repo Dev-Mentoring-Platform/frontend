@@ -92,11 +92,7 @@ const WriteMentee = ({ token, lectureId, unreviewedLecture }) => {
           <div className={styles.lectureInfo}>
             <img
               className={styles.lectureInfoImg}
-              src={
-                unreviewedLecture.thumbnail
-                  ? unreviewedLecture.thumbnail
-                  : "/samples/lecture.png"
-              }
+              src={unreviewedLecture.thumbnail || "/samples/lecture.png"}
             />
             <div className={styles.lectureInfoText}>
               <p className={styles.lectureTitle}>{unreviewedLecture.title}</p>
