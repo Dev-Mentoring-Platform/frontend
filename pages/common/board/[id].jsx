@@ -11,7 +11,7 @@ import MainBoard from "../../../components/mentee/board/MainBoard";
 import BottomButton from "../../../components/mentee/board/BottomButton";
 import BoardOptionModal from "../../../components/mentee/board/BoardOptionModal";
 import { getMyInfo } from "../../../core/api/User";
-import { likeBoardPosts } from "../../../core/api/mentee/board";
+import { likeBoardPosts } from "../../../core/api/Mentee/board";
 
 const BoardDetail = ({ token, params, postComments, postDetail, myInfo }) => {
   const [modal, setModal] = useState(false);

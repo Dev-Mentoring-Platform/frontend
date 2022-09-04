@@ -10,7 +10,7 @@ import { uploadPost } from "../../../core/api/Mentee";
 import styles from "./writeboard.module.scss";
 import * as cookie from "cookie";
 import router from "next/router";
-import { getBoardCategory } from "../../../core/api/mentee/board";
+import { getBoardCategory } from "../../../core/api/Mentee/board";
 
 // "LECTURE_REQUEST" , "TALK"
 const WriteBoard = ({ token, categories }) => {
