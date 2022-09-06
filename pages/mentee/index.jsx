@@ -111,7 +111,7 @@ const Home = ({ classes, role, token, user }) => {
         subjects: subjects.filter((el) => el !== "전체"),
         systemType: type,
         title: search,
-        _zone: user.zone,
+        _zone: "서울특별시 강동구 상일동",
       });
 
       setClassData(classData.concat(...showMore.content));
@@ -134,7 +134,7 @@ const Home = ({ classes, role, token, user }) => {
       subjects: subjects.filter((el) => el !== "전체"),
       systemType: type,
       title: search,
-      _zone: user.zone,
+      _zone: "서울특별시 강동구 상일동",
     };
     const newLecture = await getLecture(token, data);
     setClassData(newLecture.content);
@@ -151,7 +151,7 @@ const Home = ({ classes, role, token, user }) => {
 
     const data = {
       page: 1,
-      _zone: user.zone,
+      _zone: "서울특별시 강동구 상일동",
     };
     const newLecture = await getLecture(token, data);
     setClassData(newLecture.content);
@@ -165,7 +165,7 @@ const Home = ({ classes, role, token, user }) => {
       subjects: subjects.filter((el) => el !== "전체"),
       systemType: type,
       title: search,
-      _zone: user.zone,
+      _zone: "서울특별시 강동구 상일동",
     };
     const newLecture = await getLecture(token, data);
     setClassData(newLecture.content);
@@ -199,7 +199,7 @@ const Home = ({ classes, role, token, user }) => {
           />
         </div>
       </div>
-      <Header zone={user.zone} />
+      <Header zone={"서울특별시 강동구 상일동"} />
       <main>
         <SearchBox setSearch={setSearch} />
         <Breadcrumb filters={filters} openDrawer={openDrawer} />
@@ -388,7 +388,9 @@ export const getServerSideProps = async (context) => {
   const user = await getUserRoleType(parsedCookies.accessToken);
   const classes = await getLecture(parsedCookies.accessToken, {
     page: 1,
-    _zone: user.zone,
+    // _zone: user.zone,
+    _zone: "서울특별시 강동구 상일동",
+
   });
 
   return {

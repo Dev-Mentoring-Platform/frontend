@@ -38,6 +38,7 @@ const LectureBlock = ({ lecture, approved, token }) => {
               styles.btnForlectureBlock,
               basicBtnStyle.btn_bg_color
             )}
+            disabled={lecture?.reviewed}
             onClick={() =>
               router.push({
                 pathname: `/mentee/mypage/menteeReview/review/${lecture.enrollmentId}`,

@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./List.module.scss";
 import router from "next/router";
+import { IC_PersonBlue } from "../../../icons";
 
 function List({ boardList }) {
   return (
@@ -33,7 +34,8 @@ function List({ boardList }) {
               src={content.userImage}
               alt="userImage"
             />
-          ) : null}
+          ) :  
+          (<img  className={styles.userImage} src="https://mentoridge-bucket.s3.ap-northeast-2.amazonaws.com/image/ff6a084c-cb14-40f0-a42a-73f634b0a068" alt="userImage"/>)}
         </li>
       ))}
     </ul>

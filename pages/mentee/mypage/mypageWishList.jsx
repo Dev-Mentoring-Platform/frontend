@@ -8,10 +8,11 @@ import { getMenteePicks } from "../../../core/api/Mentee";
 import NoWrite from "../../../components/mentee/NoWrite";
 
 export default function myPageWishList({ wishList }) {
+console.log(wishList)
   return (
     <main className={styles.main}>
       <TopMenu />
-
+      <div className={styles.wishListContainer}>
       {wishList.content.length !== 0 ? (
         wishList.content.map((wish, idx) => (
           <ContentList key={idx} wish={wish} />
@@ -19,6 +20,8 @@ export default function myPageWishList({ wishList }) {
       ) : (
         <NoWrite text="위시리스트가 없습니다" />
       )}
+      </div>
+    
       <HomeIndicator />
     </main>
   );

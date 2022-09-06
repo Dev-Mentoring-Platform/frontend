@@ -11,7 +11,7 @@ import { transGroup } from "../classCard";
 
 function LectureTitle({ token, classData, reviewData, role }) {
   const [select, setSelect] = useState(true);
-
+  
   const score =
     classData?.scoreAverage % 1 == 0
       ? classData?.scoreAverage + ".0"
@@ -80,7 +80,7 @@ function LectureTitle({ token, classData, reviewData, role }) {
                 return (
                   <ClassReview
                     token={token}
-                    cid={classData.id}
+                    cid={classData.lectureId}
                     mentee={data}
                     key={i}
                     role={role}

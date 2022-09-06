@@ -9,6 +9,7 @@ import { Rating } from "./rating";
 import { IC_PersonBlue } from "../../../icons";
 
 const MenteeReview = ({ data, onClick }) => {
+  console.log(data)
   return (
     <section className={styles.menteeReviewSection} onClick={onClick}>
       <div className={styles.menteeProfileBlock}>
@@ -25,7 +26,7 @@ const MenteeReview = ({ data, onClick }) => {
           <Rating w={55} h={11} fillRating={data.score} />
         </div>
 
-        <span className={styles.date}>{data.createdAt.substring(0, 10)}</span>
+        <span className={styles.date}>{data?.createdAt?.slice(0, 10)}</span>
       </div>
 
       <p className={styles.contentBlock}>{data.content}</p>
@@ -93,7 +94,7 @@ const MentorReview = ({ token, cid, mentee, data, role }) => {
 
 const ClassReview = ({ token, cid, mentee, role }) => {
   const child = mentee?.child;
-
+  
   return (
     <section
       className={
@@ -105,7 +106,7 @@ const ClassReview = ({ token, cid, mentee, role }) => {
       <MenteeReview
         data={mentee}
         onClick={() => {
-          if (!child?.mentorReviewId) {
+          if (child?.mentorReviewId) {
             router.push(
               `/mentor/myclass/classDetail/${cid}/review/${mentee.menteeReviewId}`
             );

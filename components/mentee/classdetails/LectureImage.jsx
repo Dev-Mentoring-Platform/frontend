@@ -19,7 +19,7 @@ function LectureImage({ classData }) {
         <span>{LevelToKor(classData.difficulty)}</span>
       </div>
       <div className={styles.mentorProfileBlock}>
-        {classData.lectureMentor.image ? (
+        {classData?.lectureMentor?.image ? (
           <Image
             src={classData.lectureMentor.image}
             width={72}

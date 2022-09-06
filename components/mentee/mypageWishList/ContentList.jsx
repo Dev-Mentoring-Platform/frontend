@@ -6,13 +6,14 @@ import { useRouter } from "next/router";
 import { LevelToKor } from "../../../utils/class/classLevel";
 function ContentList({ wish }) {
   const { lecture } = wish;
+  console.log(wish)
   const router = useRouter();
   return (
     <section className={styles.container}>
       <article
         onClick={() =>
           router.push({
-            pathname: `/mentee/classdetails/${lecture.id}`,
+            pathname: `/mentee/classdetails/${lecture.lectureId}`,
             query: {
               lecturePriceId: lecture.lecturePrice.lecturePriceId,
             },

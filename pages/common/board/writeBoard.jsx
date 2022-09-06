@@ -17,7 +17,7 @@ const WriteBoard = ({ token, categories }) => {
   const [inquiryInfo, setInquiryInfo] = useState({
     content: "",
     title: "",
-    category: "강의요청",
+    category: "LECTURE_REQUEST",
     image: "",
   });
   const [errMsg, setErrMsg] = useState("");
@@ -26,7 +26,7 @@ const WriteBoard = ({ token, categories }) => {
     error: false,
     errorMsg: "",
   });
-
+  console.log(inquiryInfo)
   useEffect(() => {
     setResult({ success: false, error: false, errorMsg: "" });
 
@@ -90,6 +90,7 @@ const WriteBoard = ({ token, categories }) => {
         disabled={!(errMsg == "")}
         onClick={async () => {
           const res = await uploadPost(token, inquiryInfo);
+          
           if (res.status == 201) {
             setResult({ success: true, error: false, errorMsg: "" });
             router.push(`/common/board`);
