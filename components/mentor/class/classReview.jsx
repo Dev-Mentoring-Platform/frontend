@@ -8,10 +8,9 @@ import RefreshPage from "../../../utils/refreshPage";
 import { Rating } from "./rating";
 import { IC_PersonBlue } from "../../../icons";
 
-const MenteeReview = ({ data, onClick }) => {
-  console.log(data)
+const MenteeReview = ({ data }) => {
   return (
-    <section className={styles.menteeReviewSection} onClick={onClick}>
+    <section className={styles.menteeReviewSection}>
       <div className={styles.menteeProfileBlock}>
         <div className={styles.profileImg}>
           {data?.userImage ? (
@@ -94,7 +93,7 @@ const MentorReview = ({ token, cid, mentee, data, role }) => {
 
 const ClassReview = ({ token, cid, mentee, role }) => {
   const child = mentee?.child;
-  
+
   return (
     <section
       className={
@@ -103,16 +102,7 @@ const ClassReview = ({ token, cid, mentee, role }) => {
           : styles.classReviewSection
       }
     >
-      <MenteeReview
-        data={mentee}
-        onClick={() => {
-          if (child?.mentorReviewId) {
-            router.push(
-              `/mentor/myclass/classDetail/${cid}/review/${mentee.menteeReviewId}`
-            );
-          }
-        }}
-      />
+      <MenteeReview data={mentee} />
       {child?.mentorReviewId ? (
         <MentorReview
           token={token}

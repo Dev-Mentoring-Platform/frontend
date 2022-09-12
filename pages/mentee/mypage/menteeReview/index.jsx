@@ -36,6 +36,8 @@ const mypageMenteeReview = ({ token, unreviewedMentee, menteeReviews }) => {
     }
   }, []);
 
+  console.log(menteeReviews, "menteeReviews");
+
   return (
     <>
       <section className={styles.contentSection}>

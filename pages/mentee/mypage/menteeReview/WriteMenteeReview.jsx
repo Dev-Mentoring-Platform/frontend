@@ -1,11 +1,12 @@
 import router from "next/router";
 import { useState, useEffect } from "react";
-import { IC_Menu } from "../../../../icons";
+import { IC_Menu, IC_PersonBlue } from "../../../../icons";
 import styles from "./menteeReview.module.scss";
 import { Rating } from "../../../../components/mentor/class/rating";
 import OptionModal from "../../../../components/mentee/menteeModal/OptionModal";
 import NoWrite from "../../../../components/mentee/NoWrite";
 import { deleteMenteeReivew } from "../../../../core/api/Mentee";
+import Image from "next/image";
 
 const WriteMenteeReview = ({ menteeReviews, token }) => {
   const [reviews, setReviews] = useState([]);
@@ -121,6 +122,40 @@ const WriteMenteeReview = ({ menteeReviews, token }) => {
                         <p>{dateDot}</p>
                       </div>
                       <p className={styles.contentText}>{review.content}</p>
+
+                      {review.child.content ? (
+                        <section
+                          key={review.child.content}
+                          className={styles.mentorReviewSection}
+                        >
+                          <div className={styles.mentorProfileBlock}>
+                            <div className={styles.profileImg}>
+                              {review.child?.content.userImage ? (
+                                <Image
+                                  src={review.child?.content.userImage}
+                                  width={32}
+                                  height={32}
+                                />
+                              ) : (
+                                <IC_PersonBlue width={32} height={32} />
+                              )}
+                            </div>
+
+                            <div className={styles.alignColumn}>
+                              <span className={styles.name}>
+                                {review.child?.userNickname}
+                              </span>
+                              <span className={styles.date}>
+                                {review.child?.createdAt.substring(0, 10)}
+                              </span>
+                            </div>
+                          </div>
+
+                          <p className={styles.contentBlock}>
+                            {review.child?.content}
+                          </p>
+                        </section>
+                      ) : null}
                     </article>
                   </section>
                 </div>

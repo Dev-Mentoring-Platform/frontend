@@ -122,3 +122,90 @@
     }
   }
 }
+
+.menteeReviewSection {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+
+  .menteeProfileBlock {
+    @include flexBox(between, center);
+    margin-bottom: 8px;
+
+    .profileImg {
+      @include avatar(32px, 32px);
+      margin-right: 12px;
+    }
+
+    .alignColumn {
+      @include flexBox(center, start);
+      flex-direction: column;
+      width: 63%;
+      margin-right: 12px;
+
+      .name {
+        @include text-style($fs-12, $sub, 500, left);
+        margin-bottom: 2px;
+      }
+    }
+
+    .date {
+      @include text-style($fs-12, $light_gray, 500);
+    }
+  }
+
+  .contentBlock {
+    @include text-style($fs-12, $sub, 400, left);
+    margin: 0;
+  }
+}
+
+.mentorReviewSection {
+  width: 335px;
+  padding: 16px;
+  margin: 0 auto;
+  margin-top: 16px;
+  background-color: $bg-color;
+  border: 0;
+  border-radius: 8px;
+
+  .mentorProfileBlock {
+    @include flexBox(start, center);
+    position: relative;
+    margin-bottom: 8px;
+
+    .profileImg {
+      @include avatar(32px, 32px);
+      margin-right: 12px;
+    }
+
+    .alignColumn {
+      @include flexBox(center, start);
+      flex-direction: column;
+      width: 63%;
+      margin-right: 12px;
+
+      .name {
+        @include text-style($fs-12, $sub, 500, left);
+        margin-bottom: 2px;
+      }
+
+      .date {
+        @include text-style($fs-12, $light_gray, 400);
+      }
+    }
+  }
+
+  .contentBlock {
+    @include text-style($fs-12, $sub, 400, left);
+    margin: 0;
+  }
+}
+
+.classReviewSectionNoCursor,
+.classReviewSection {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  background-color: $white;
+  border-bottom: 1px solid $line;
+}
