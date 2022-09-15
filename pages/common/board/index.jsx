@@ -45,7 +45,7 @@ const Board = ({ role, boardList, token }) => {
         page: page + 1,
         search,
       });
-
+      console.log(showMore)
       setFilteredData(filteredData.concat(...showMore.content));
     }
   }, [page, filteredData]);

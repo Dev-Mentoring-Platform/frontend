@@ -5,6 +5,7 @@ import { IC_PersonBlue } from "../../../icons";
 import styles from "./BoardComment.module.scss";
 
 const BoardComment = ({ token, content, myInfo }) => {
+  
   return (
     <div className={styles.commentSection}>
       <div className={styles.profileContainer}>

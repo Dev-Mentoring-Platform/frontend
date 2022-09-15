@@ -28,14 +28,14 @@ function List({ boardList }) {
               </span>
             </div>
           </div>
-          {content.userImage ? (
+          {/* {content.userImage ? (
             <img
               className={styles.userImage}
               src={content.userImage}
               alt="userImage"
             />
           ) :  
-          (<img  className={styles.userImage} src="https://mentoridge-bucket.s3.ap-northeast-2.amazonaws.com/image/ff6a084c-cb14-40f0-a42a-73f634b0a068" alt="userImage"/>)}
+          (<img  className={styles.userImage} src="https://mentoridge-bucket.s3.ap-northeast-2.amazonaws.com/image/ff6a084c-cb14-40f0-a42a-73f634b0a068" alt="userImage"/>)} */}
         </li>
       ))}
     </ul>

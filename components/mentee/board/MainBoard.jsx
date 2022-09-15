@@ -5,25 +5,29 @@ import {
   IC_CommentBubble,
   IC_HeartEmpty,
   IC_HeartRedFill,
+  IC_PersonBlue,
   IC_Report,
 } from "../../../icons";
 import styles from "./MainBoard.module.scss";
 
 const MainBoard = ({ postData, updateLike }) => {
+  console.log(postData)
   return (
     <div>
       <div className={styles.profileContainer}>
         <div className={styles.leftPannel}>
           <div className={styles.imageContainer}>
-            <Image
-              src={
-                postData.userImage ? postData.userImage : "/samples/lecture.png"
-              }
-              className={styles.image}
-              alt="profile"
-              width="40px"
-              height="40px"
-            />
+            {postData.userImage ? (
+              <Image
+                src={postData.userImage }
+                className={styles.image}
+                alt=""
+                width="40px"
+                height="40px"
+              />
+            ) : (
+              <IC_PersonBlue width={40} height={40} />
+            )}
           </div>
         </div>
         <div className={styles.rightPannel}>
