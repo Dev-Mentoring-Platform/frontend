@@ -9,6 +9,7 @@ import styles from "./LectureBlock.module.scss";
 
 const LectureBlock = ({ lecture, approved, token }) => {
   const router = useRouter();
+  console.log(lecture, approved);
   return (
     <div className={styles.lectureBlock}>
       <div className={styles.lectureInfo}>
@@ -38,7 +39,7 @@ const LectureBlock = ({ lecture, approved, token }) => {
               styles.btnForlectureBlock,
               basicBtnStyle.btn_bg_color
             )}
-            disabled={true}
+            disabled={lecture.reviewed}
             onClick={() =>
               router.push({
                 pathname: `/mentee/mypage/menteeReview/review/${lecture.enrollmentId}`,
