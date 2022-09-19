@@ -26,6 +26,8 @@ const Board = ({ role, boardList, token }) => {
   const [page, setPage] = useState(1);
   const [filteredData, setFilteredData] = useState(boardList.content);
 
+  console.log(filteredData)
+ 
   const debounceSearch = async () => {
     const filteredList = await getBoardList(token, { page: 1, search });
     setPage(1);
@@ -40,12 +42,14 @@ const Board = ({ role, boardList, token }) => {
     const { scrollHeight } = document.body;
 
     if (Math.round(scrollTop + innerHeight) >= scrollHeight) {
+   
       setPage(page + 1);
       const showMore = await getBoardList(token, {
         page: page + 1,
         search,
       });
       console.log(showMore)
+    
       setFilteredData(filteredData.concat(...showMore.content));
     }
   }, [page, filteredData]);
@@ -57,6 +61,7 @@ const Board = ({ role, boardList, token }) => {
       window.removeEventListener("scroll", handleInfiniteScroll, true);
     };
   }, [handleInfiniteScroll]);
+
 
   return (
     <div className={styles.home}>

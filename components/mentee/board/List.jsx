@@ -6,11 +6,8 @@ import { IC_PersonBlue } from "../../../icons";
 function List({ boardList }) {
   return (
     <ul className={styles.container}>
-      {boardList.map((content) => (
-        <li
-          key={content.postId}
-          onClick={() => router.push(`/common/board/${content.postId}`)}
-        >
+      {React.Children.toArray(boardList.map((content) => (
+        <li onClick={() => router.push(`/common/board/${content.postId}`)} >
           <div className={styles.contentContainers}>
             <h6>{content.title}</h6>
 
@@ -36,7 +33,7 @@ function List({ boardList }) {
             />
           ) :  
           (<img  className={styles.userImage} src="https://mentoridge-bucket.s3.ap-northeast-2.amazonaws.com/image/ff6a084c-cb14-40f0-a42a-73f634b0a068" alt="userImage"/>)} */}
-        </li>
+        </li>)
       ))}
     </ul>
   );

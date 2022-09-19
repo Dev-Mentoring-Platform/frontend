@@ -123,7 +123,7 @@ const WriteMenteeReview = ({ menteeReviews, token }) => {
                       </div>
                       <p className={styles.contentText}>{review.content}</p>
 
-                      {review.child.content ? (
+                      {review?.child?.content ? (
                         <section
                           key={review.child.content}
                           className={styles.mentorReviewSection}
