@@ -37,7 +37,9 @@ const MenteeListBlock = ({ token, data, setOpen, setModal, type }) => {
   const [change, setChange] = useState(false);
   const GetMenteeLectureInfo = async () => {
     setMenteeLecture(
-      await getMenteeLecture(token, data.menteeId).then((res) => res.content)
+      await getMenteeLecture(token, data.menteeId, data.enrollmentId).then(
+        (res) => res
+      )
     );
   };
 
@@ -46,9 +48,9 @@ const MenteeListBlock = ({ token, data, setOpen, setModal, type }) => {
   }, []);
 
   useEffect(() => {
-    if (menteeLecture[0]?.lecture.lecturePrice.isGroup)
-      setSystems(menteeLecture[0]?.lecture.systems[0].name + " / " + "그룹");
-    else setSystems(menteeLecture[0]?.lecture.systems[0].name + " / " + "1:1");
+    if (menteeLecture?.lecture?.lecturePrice.isGroup)
+      setSystems(menteeLecture?.lecture?.systems[0].name + " / " + "그룹");
+    else setSystems(menteeLecture?.lecture?.systems[0].name + " / " + "1:1");
   }, [menteeLecture]);
 
   return (
@@ -67,9 +69,9 @@ const MenteeListBlock = ({ token, data, setOpen, setModal, type }) => {
 
       <div className={styles.lectureInfo}>
         <div className={styles.lectureImg}>
-          {menteeLecture[0]?.lecture.thumbnail ? (
+          {menteeLecture?.lecture?.thumbnail ? (
             <Image
-              src={menteeLecture[0]?.lecture.thumbnail}
+              src={menteeLecture?.lecture?.thumbnail}
               width={84}
               height={84}
             />
@@ -78,10 +80,10 @@ const MenteeListBlock = ({ token, data, setOpen, setModal, type }) => {
           )}
         </div>
         <div className={styles.lectureInfoText}>
-          <h1 className={styles.title}>{menteeLecture[0]?.lecture?.title}</h1>
+          <h1 className={styles.title}>{menteeLecture?.lecture?.title}</h1>
           <span className={styles.classSystem}>{systems}</span>
           <span className={styles.price}>
-            {menteeLecture[0]?.lecture?.lecturePrice?.totalPrice.toLocaleString(
+            {menteeLecture?.lecture?.lecturePrice?.totalPrice.toLocaleString(
               "ko-KR"
             )}
             원
@@ -120,11 +122,11 @@ const MenteeListBlock = ({ token, data, setOpen, setModal, type }) => {
                 basicBtnStyle.btn_bg_color
               )}
               onClick={() => {
-                if (menteeLecture[0]?.reviewId == null) {
+                if (menteeLecture?.reviewId == null) {
                   setModal(true);
                 } else {
                   router.push(
-                    `/mentor/myclass/classDetail/${menteeLecture[0]?.lecture?.lectureId}/review/${menteeLecture[0]?.reviewId}`
+                    `/mentor/myclass/classDetail/${menteeLecture?.lecture?.lectureId}/review/${menteeLecture?.reviewId}`
                   );
                 }
               }}

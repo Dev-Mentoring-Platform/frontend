@@ -10,10 +10,10 @@ export const getMyMentees = async (closed, token) => {
   return res.data;
 };
 
-export const getMenteeLecture = async (token, mentee) => {
+export const getMenteeLecture = async (token, mentee, enrollmentID) => {
   const res = await Api({
     method: METHOD.GET,
-    url: `/mentors/my-mentees/${mentee}?&page=1`,
+    url: `/mentors/my-mentees/${mentee}/enrollments/${enrollmentID}?&page=1`,
     headers: { Authorization: token },
   });
   return res.data;
