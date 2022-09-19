@@ -8,7 +8,7 @@ const SearchBox = ({ setSearch }) => {
       <div className={styles.inputBox}>
         <input
           type="text"
-          placeholder="강의명·언어·멘토를 검색하세요"
+          placeholder="강의명을 검색하세요"
           onChange={(e) => setSearch(e.target.value)}
         />
         <IC_SearchS className={styles.searchIcon} />
