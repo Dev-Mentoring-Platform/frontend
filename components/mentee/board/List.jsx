@@ -6,26 +6,27 @@ import { IC_PersonBlue } from "../../../icons";
 function List({ boardList }) {
   return (
     <ul className={styles.container}>
-      {React.Children.toArray(boardList.map((content) => (
-        <li onClick={() => router.push(`/common/board/${content.postId}`)} >
-          <div className={styles.contentContainers}>
-            <h6>{content.title}</h6>
+      {React.Children.toArray(
+        boardList.map((content) => (
+          <li onClick={() => router.push(`/common/board/${content.postId}`)}>
+            <div className={styles.contentContainers}>
+              <h6>{content.title}</h6>
 
-            <div className={styles.span_box}>
-              <span>{content.userNickname}</span>
-              <span>{content.createdAt.slice(0, 10)}</span>
-              <span>
-                조회 <strong>{content.hits}</strong>
-              </span>
-              <span>
-                댓글 <strong>{content.commentCount}</strong>
-              </span>
-              <span>
-                좋아요 <strong>{content.likingCount}</strong>
-              </span>
+              <div className={styles.span_box}>
+                <span>{content.userNickname}</span>
+                <span>{content.createdAt.slice(0, 10)}</span>
+                <span>
+                  조회 <strong>{content.hits}</strong>
+                </span>
+                <span>
+                  댓글 <strong>{content.commentCount}</strong>
+                </span>
+                <span>
+                  좋아요 <strong>{content.likingCount}</strong>
+                </span>
+              </div>
             </div>
-          </div>
-          {/* {content.userImage ? (
+            {/* {content.userImage ? (
             <img
               className={styles.userImage}
               src={content.userImage}
@@ -33,8 +34,9 @@ function List({ boardList }) {
             />
           ) :  
           (<img  className={styles.userImage} src="https://mentoridge-bucket.s3.ap-northeast-2.amazonaws.com/image/ff6a084c-cb14-40f0-a42a-73f634b0a068" alt="userImage"/>)} */}
-        </li>)
-      ))}
+          </li>
+        ))
+      )}
     </ul>
   );
 }

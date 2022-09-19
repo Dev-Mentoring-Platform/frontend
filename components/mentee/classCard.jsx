@@ -68,9 +68,9 @@ const ClassCard = ({ classDetail }) => {
           <p className={styles.tutorName}>{`멘토 ${lectureMentor.nickname}`}</p>
           <div className={styles.rating}>
             {classDetail.picked ? (
-              <IC_HeartRedFill width="16px" height="18px" />
+              <IC_HeartRedFill width="18px" height="18px" />
             ) : (
-              <IC_HeartEmpty width="16px" height="18px" />
+              <IC_HeartEmpty width="18px" height="18px" />
             )}
             <span>{classDetail.pickCount ? classDetail.pickCount : 0}</span>
             <IC_HeightBar width="1" height="8" className={styles.height_bar} />

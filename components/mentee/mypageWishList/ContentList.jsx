@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { LevelToKor } from "../../../utils/class/classLevel";
 function ContentList({ wish }) {
   const { lecture } = wish;
-  console.log(wish)
+  console.log(wish);
   const router = useRouter();
   return (
     <section className={styles.container}>
@@ -39,7 +39,7 @@ function ContentList({ wish }) {
             className={styles.mentor}
           >{`멘토 ${lecture.mentorNickname}`}</span>
           <div className={styles.review}>
-            <IC_HeartRedFill width={"16px"} height={"16px"} />
+            <IC_HeartRedFill width={"18px"} height={"16px"} />
             <span>{lecture.pickCount ? lecture.pickCount : 0}</span>
             <div className={styles.bar}></div>
             <IC_Star width={"11px"} height={"11px"} />

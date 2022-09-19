@@ -6,6 +6,7 @@ import { IC_SearchS } from "../../../icons";
 import styles from "./board.module.scss";
 import * as cookie from "cookie";
 import { getBoardList } from "../../../core/api/Mentee";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export const useDebounceEffect = (func, delay, deps) => {
   const callback = useCallback(func, deps);
@@ -26,8 +27,6 @@ const Board = ({ role, boardList, token }) => {
   const [page, setPage] = useState(1);
   const [filteredData, setFilteredData] = useState(boardList.content);
 
-  console.log(filteredData)
- 
   const debounceSearch = async () => {
     const filteredList = await getBoardList(token, { page: 1, search });
     setPage(1);
@@ -36,32 +35,20 @@ const Board = ({ role, boardList, token }) => {
 
   useDebounceEffect(() => debounceSearch(), 500, [search]);
 
-  const handleInfiniteScroll = useCallback(async () => {
-    const { scrollTop } = document.documentElement;
-    const { innerHeight } = window;
-    const { scrollHeight } = document.body;
+  const handleShowMore = async () => {
+    const showMore = await getBoardList(token, {
+      page: page,
+      search,
+    });
 
-    if (Math.round(scrollTop + innerHeight) >= scrollHeight) {
-   
-      setPage(page + 1);
-      const showMore = await getBoardList(token, {
-        page: page + 1,
-        search,
-      });
-      console.log(showMore)
-    
-      setFilteredData(filteredData.concat(...showMore.content));
-    }
-  }, [page, filteredData]);
+    setFilteredData([...filteredData, ...showMore.content]);
+  };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleInfiniteScroll, true);
-
-    return () => {
-      window.removeEventListener("scroll", handleInfiniteScroll, true);
-    };
-  }, [handleInfiniteScroll]);
-
+    if (page != 1) {
+      handleShowMore();
+    }
+  }, [page]);
 
   return (
     <div className={styles.home}>
@@ -76,7 +63,15 @@ const Board = ({ role, boardList, token }) => {
           <IC_SearchS className={styles.searchIcon} />
         </div>
       </main>
-      <List boardList={filteredData} />
+      <InfiniteScroll
+        dataLength={10}
+        next={() => setPage(page + 1)}
+        hasMore={!boardList.last}
+        className={styles.infiniteScroll}
+      >
+        <List boardList={filteredData} />
+      </InfiniteScroll>
+
       <BottomTab num={[0, 1, 0, 0]} role={role} />
     </div>
   );

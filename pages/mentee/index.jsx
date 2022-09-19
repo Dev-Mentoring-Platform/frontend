@@ -19,6 +19,7 @@ import Chip from "@mui/material/Chip";
 import { getLecture } from "../../core/api/Mentee";
 import { getUserRoleType } from "../../core/api/Login";
 import { useDebounceEffect } from "../common/board";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const filters = ["개발 분야", "수업 방식", "레벨"];
 const subjectsList = [
@@ -92,39 +93,25 @@ const Home = ({ classes, role, token, user }) => {
     }
   };
 
-  const handleInfiniteScroll = useCallback(async () => {
-    // 현재 위치
-    const { scrollTop } = document.documentElement;
+  const handleShowMore = async () => {
+    const showMore = await getLecture(token, {
+      difficultyTypes: difficult,
+      isGroup: group,
+      page: page,
+      subjects: subjects.filter((el) => el !== "전체"),
+      systemType: type,
+      title: search,
+      _zone: "서울특별시 강동구 상일동",
+    });
 
-    // 뷰포트 길이
-    const { innerHeight } = window;
-
-    // 스크롤 전체 길이
-    const { scrollHeight } = document.body;
-
-    if (Math.round(scrollTop + innerHeight) >= scrollHeight) {
-      setPage(page + 1);
-      const showMore = await getLecture(token, {
-        difficultyTypes: difficult,
-        isGroup: group,
-        page: page + 1,
-        subjects: subjects.filter((el) => el !== "전체"),
-        systemType: type,
-        title: search,
-        _zone: "서울특별시 강동구 상일동",
-      });
-
-      setClassData(classData.concat(...showMore.content));
-    }
-  }, [page, classData]);
+    setClassData(classData.concat(...showMore.content));
+  };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleInfiniteScroll, true);
-
-    return () => {
-      window.removeEventListener("scroll", handleInfiniteScroll, true);
-    };
-  }, [handleInfiniteScroll]);
+    if (page != 1) {
+      handleShowMore();
+    }
+  }, [page]);
 
   const getFilteredClassList = async () => {
     const data = {
@@ -205,9 +192,16 @@ const Home = ({ classes, role, token, user }) => {
         <Breadcrumb filters={filters} openDrawer={openDrawer} />
         <p className={styles.classesCount}>총 {classData?.length}개의 강의</p>
         <div className={styles.classCards}>
-          {classData?.map((classDetail, index) => (
-            <ClassCard key={index} classDetail={classDetail} />
-          ))}
+          <InfiniteScroll
+            dataLength={10}
+            next={() => setPage(page + 1)}
+            hasMore={!classes.last}
+            className={styles.infiniteScroll}
+          >
+            {classData?.map((classDetail, index) => (
+              <ClassCard key={index} classDetail={classDetail} />
+            ))}
+          </InfiniteScroll>
         </div>
 
         <Drawer
@@ -390,7 +384,6 @@ export const getServerSideProps = async (context) => {
     page: 1,
     // _zone: user.zone,
     _zone: "서울특별시 강동구 상일동",
-
   });
 
   return {
