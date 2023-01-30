@@ -1,81 +1,80 @@
 import { useContext, useEffect, useState } from "react";
 import * as cookie from "cookie";
-import styles from "./chat.module.scss";
-import { getMyChatHistory, readChat } from "../../../../core/api/Chat";
-import ChatRoomTyping from "../../../../components/mentor/chat/chatRoomTyping";
-import ChatRoomTopBar from "../../../../components/mentor/chat/chatRoomTopBar";
-import ChatRoomContentBlock from "../../../../components/mentor/chat/chatRoomContentBlock";
-import { getMyInfo, getUserInfo } from "../../../../core/api/User";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { getUserRoleType } from "../../../../core/api/Login";
-import { sockContext } from "../../../../core/provider";
-import { getOutFromChatRoom } from "../../../../core/api/Chat";
+import styles from "./chat.module.scss";
+import {
+  ChatRoomTyping,
+  ChatRoomTopBar,
+  ChatRoomContentBlock,
+} from "/components/common/chat";
+import { getMyChatHistory, readChat, getOutFromChatRoom } from "/core/api/Chat";
+import { getUserRoleType } from "/core/api/Login";
+import { getMyInfo, getUserInfo } from "/core/api/User";
+import { sockContext } from "/core/provider";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const chatRoomId = context.query.chid;
-  const othersId = context.query.other;
-  const history = await getMyChatHistory(token, chatRoomId, 1).then((res) =>
+  const { chid, other } = context.query;
+  const history = await getMyChatHistory(token, chid, 1).then((res) =>
     res.content.reverse()
   );
-  const other = await getUserInfo(token, othersId);
-  const my = await getMyInfo(token);
+  const othersInfo = await getUserInfo(token, other);
+  const myInfo = await getMyInfo(token);
   const myRole = await getUserRoleType(token).then((data) => data.loginType);
-
-  await readChat(chatRoomId);
+  await readChat(chid);
 
   return {
     props: {
       token,
       history,
-      chatRoomId,
-      other,
-      my,
+      chid,
+      othersInfo,
+      myInfo,
       myRole,
     },
   };
 }
 
-const Chat = ({ token, history, chatRoomId, other, my, myRole }) => {
+const Chat = ({ token, history, chid, othersInfo, myInfo, myRole }) => {
   const chatContext = useContext(sockContext);
   const ws = chatContext.ws;
   const [chatContents, setChatContents] = useState([]);
-  const [pageNum, setPageNum] = useState(1);
-  const [dataLen, setDataLen] = useState(10);
+  const [forScroll, setForScroll] = useState({ pageNum: 1, dataLen: 10 });
 
   useEffect(() => {
     setChatContents(history);
   }, [history]);
 
   useEffect(() => {
-    //detect page leaving
     window.onbeforeunload = function (e) {
-      if (e) getOutFromChatRoom(token, chatRoomId);
+      if (e) getOutFromChatRoom(token, chid);
     };
     window.onpopstate = function (e) {
-      if (e) getOutFromChatRoom(token, chatRoomId);
+      if (e) getOutFromChatRoom(token, chid);
     };
   }, []);
 
   const fetchMore = async () => {
-    if (pageNum != 1) {
+    if (forScroll.pageNum !== 1) {
       const moreHistory = await getMyChatHistory(
         token,
-        chatRoomId,
-        pageNum
+        chid,
+        forScroll.pageNum
       ).then((res) => res.content.reverse());
       setChatContents([...moreHistory, ...chatContents]);
     }
-    setPageNum(pageNum + 1);
-    setDataLen(dataLen + 10);
+    setForScroll((prev) => ({
+      pageNum: prev.pageNum + 1,
+      dataLen: prev.dataLen + 10,
+    }));
   };
 
   useEffect(() => {
-    if (chatContext.chat != undefined && chatContext.chat.type == "MESSAGE")
+    if (chatContext.chat !== undefined && chatContext.chat.type === "MESSAGE")
       setChatContents((prev) => [...prev, chatContext.chat]);
     else if (
-      chatContext.chat != undefined &&
-      chatContext.chat.type == "ENTER"
+      chatContext.chat !== undefined &&
+      chatContext.chat.type === "ENTER"
     ) {
       setChatContents(
         chatContents.map((data) =>
@@ -89,9 +88,9 @@ const Chat = ({ token, history, chatRoomId, other, my, myRole }) => {
     if (content.replace(/ /g, "").length !== 0) {
       var msg = {
         type: "MESSAGE",
-        chatroomId: parseInt(chatRoomId),
-        receiverId: other.userId,
-        senderId: my.userId,
+        chatroomId: parseInt(chid),
+        receiverId: othersInfo.userId,
+        senderId: myInfo.userId,
         text: content,
       };
       ws.send("/pub/chat", {}, JSON.stringify(msg));
@@ -101,34 +100,31 @@ const Chat = ({ token, history, chatRoomId, other, my, myRole }) => {
   return (
     <div className={styles.chatRoom}>
       <ChatRoomTopBar
-        nickname={other?.nickname}
-        othersRole={myRole == "ROLE_MENTEE" ? "멘토" : "멘티"}
-        getOut={() => getOutFromChatRoom(token, chatRoomId)}
+        nickname={othersInfo?.nickname}
+        othersRole={myRole === "ROLE_MENTEE" ? "멘토" : "멘티"}
+        getOut={() => getOutFromChatRoom(token, chid)}
       />
       <div className={styles.chatContentSection} id="chatContents">
         <div className={styles.chatContents}>
           <InfiniteScroll
             scrollableTarget={"chatContents"}
-            dataLength={dataLen}
+            dataLength={forScroll.dataLen}
             next={fetchMore}
             hasMore={true}
-            // hasMore={!last}
             inverse={true}
           >
-            {chatContents.length != 0 &&
-              chatContents?.map((data, i) => {
-                return (
-                  <ChatRoomContentBlock
-                    key={i}
-                    my={my}
-                    other={other}
-                    sender={data.senderId}
-                    sentAt={data.createdAt}
-                    msg={data.text}
-                    checked={data.checked}
-                  />
-                );
-              })}
+            {chatContents.length !== 0 &&
+              chatContents?.map((data, i) => (
+                <ChatRoomContentBlock
+                  key={i}
+                  my={myInfo}
+                  other={othersInfo}
+                  sender={data.senderId}
+                  sentAt={data.createdAt}
+                  msg={data.text}
+                  checked={data.checked}
+                />
+              ))}
           </InfiniteScroll>
         </div>
       </div>

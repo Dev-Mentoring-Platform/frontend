@@ -1,7 +1,8 @@
-import styles from "./chatRoomTopBar.module.scss";
-import { IC_ArrowLeft, IC_Menu, IC_Plus } from "../../../icons";
-import Role from "../../common/tag/role";
 import router from "next/router";
+import styles from "./chatRoomTopBar.module.scss";
+import { IC_ArrowLeft, IC_Menu } from "../../../icons";
+import Role from "../tag/role";
+
 const ChatRoomTopBar = ({ nickname, othersRole, getOut }) => {
   return (
     <div className={styles.chatRoomTopBar}>

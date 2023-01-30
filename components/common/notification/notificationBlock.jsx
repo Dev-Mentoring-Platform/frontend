@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import ConvertTime from "../../../utils/common/convertTime";
 import styles from "./notificationBlock.module.scss";
+import ConvertTime from "/utils/common/convertTime";
+
 const NotificationBlock = ({ title, date, content, deleteAlarm }) => {
   const [converted, setConverted] = useState({
     date: "",
@@ -28,4 +29,4 @@ const NotificationBlock = ({ title, date, content, deleteAlarm }) => {
   );
 };
 
-export default NotificationBlock;
+export { NotificationBlock };

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styles from "./chatRoomTyping.module.scss";
-import { IC_Plus } from "../../../icons";
 
 const ChatRoomTyping = ({ sendMsg }) => {
   const [msg, setMsg] = useState("");
