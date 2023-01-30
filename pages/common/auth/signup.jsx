@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import router from "next/router";
 import styles from "./signup.module.scss";
-import { BottomBlueBtn, TopBar } from "../../../components/common";
-import { signUp } from "../../../core/api/Login";
-import SignUpErr from "../../../utils/errorHandling/signupErr";
-import UserBlock from "../../../components/mentor/signup/userBlock";
-import BasicDataBlock from "../../../components/mentor/signup/basicDataBlock";
-import AgreeBlock from "../../../components/mentor/signup/agreeBlock";
-import AddrBlock from "../../../components/mentor/signup/addrBlock";
+import { BottomBlueBtn, TopBar } from "/components/common";
+import {
+  UserBlock,
+  BasicDataBlock,
+  AgreeBlock,
+  AddrBlock,
+} from "/components/mentor/signup";
+import { signUp } from "/core/api/Login";
+import SignUpErr from "/utils/errorHandling/signupErr";
 
 const SignUp = () => {
   const [user, setUser] = useState({

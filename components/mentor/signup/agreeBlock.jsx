@@ -6,11 +6,9 @@ import router from "next/router";
 const AgreeBlock = ({ datas }) => {
   const { agree, setAgree } = datas;
   useEffect(() => {
-    if (agree.one && agree.two && agree.three) {
+    if (agree.one && agree.two && agree.three)
       setAgree({ ...agree, all: true });
-    } else {
-      setAgree({ ...agree, all: false });
-    }
+    else setAgree({ ...agree, all: false });
   }, [agree.one, agree.two, agree.three]);
 
   return (
@@ -37,9 +35,7 @@ const AgreeBlock = ({ datas }) => {
           checkBoxStyle={styles.agreeCheck}
           textStyle={styles.agreeText}
           value={agree.one}
-          onChange={() => {
-            setAgree({ ...agree, one: !agree.one });
-          }}
+          onChange={() => setAgree({ ...agree, one: !agree.one })}
         />
         <p
           className={styles.serviceText}
@@ -56,9 +52,7 @@ const AgreeBlock = ({ datas }) => {
         checkBoxStyle={styles.agreeCheck}
         textStyle={styles.agreeText}
         value={agree.two}
-        onChange={() => {
-          setAgree({ ...agree, two: !agree.two });
-        }}
+        onChange={() => setAgree({ ...agree, two: !agree.two })}
       />
       <BasicCheckBox
         id={"agree3"}
@@ -66,9 +60,7 @@ const AgreeBlock = ({ datas }) => {
         checkBoxStyle={styles.agreeCheck}
         textStyle={styles.agreeText}
         value={agree.three}
-        onChange={() => {
-          setAgree({ ...agree, three: !agree.three });
-        }}
+        onChange={() => setAgree({ ...agree, three: !agree.three })}
       />
     </section>
   );

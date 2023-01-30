@@ -10,7 +10,7 @@ const AddrBlock = ({ datas }) => {
   }, [addr.statePick]);
 
   useEffect(() => {
-    if (addr.sigunguPick != "") {
+    if (addr.sigunguPick !== "") {
       GetDong(addr.statePick, addr.sigunguPick);
     }
   }, [addr.sigunguPick]);
@@ -29,7 +29,7 @@ const AddrBlock = ({ datas }) => {
   };
 
   const GetAddr = async () => {
-    if (Array.isArray(addr.state) && addr.state.length == 0) {
+    if (Array.isArray(addr.state) && addr.state.length === 0) {
       const res = await getStates();
       InitAddress("state", "statePick", res);
     }

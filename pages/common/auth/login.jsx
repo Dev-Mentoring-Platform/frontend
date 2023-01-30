@@ -6,25 +6,30 @@ import {
   BasicInputBox,
   BasicBtn,
   basicBtnStyle,
-} from "../../../components/common";
-import { login, getUserRoleType } from "../../../core/api/Login";
-import { cookieForAuth, removeInfo } from "../../../utils/cookie";
-import { IC_Google, IC_Kakao, IC_Logo, IC_Naver } from "../../../icons";
-import { NameLogo } from "../../../components/common/icons/nameLogo";
+  NameLogo,
+} from "/components/common";
+import { login, getUserRoleType } from "/core/api/Login";
+import { IC_Google, IC_Kakao, IC_Logo, IC_Naver } from "/icons";
+import { cookieForAuth, removeInfo } from "/utils/cookie";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [user, setUser] = useState({
+    userName: "",
+    password: "",
+  });
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    removeInfo();
-  }, []);
-
   const checkAccount = async () => {
-    const res = await login(username, password);
-    if (res.status == 200) {
-      const role = await getUserRoleType(res.headers["x-access-token"]);
+    if (!user.userName || !user.password) {
+      setError("아이디와 비밀번호를 모두 입력해주세요");
+      return;
+    }
+
+    const res = await login(user.userName, user.password);
+    const { status, headers, data } = res;
+
+    if (status === 200) {
+      const role = await getUserRoleType(headers["x-access-token"]);
       cookieForAuth(res, role);
       if (role.loginType === "ROLE_MENTOR") {
         router.push("/mentor/myclass/myClassList");
@@ -33,18 +38,19 @@ const Login = () => {
         router.push("/mentee");
       }
     } else {
-      if (res.data.errorDetails[0] === "DisabledException")
+      if (data.errorDetails[0] === "DisabledException")
         setError("이메일 인증이 완료되지 않았습니다.");
       else setError("아이디 또는 비밀번호가 일치하지 않습니다.");
     }
   };
 
-  const onChangeUsername = (e) => {
-    setUsername(e.target.value);
+  const onChange = (e, key) => {
+    setUser({ ...user, [key]: e.target.value });
   };
-  const onChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
+
+  useEffect(() => {
+    removeInfo();
+  }, []);
 
   return (
     <section className={styles.loginSection}>
@@ -56,15 +62,15 @@ const Login = () => {
         <BasicInputBox
           type={"email"}
           placeholder={"ID(Email)"}
-          onChange={onChangeUsername}
-          value={username}
+          onChange={(e) => onChange(e, "userName")}
+          value={user.userName}
           style={styles.loginInputBox}
         />
         <BasicInputBox
           type={"password"}
           placeholder={"Password"}
-          onChange={onChangePassword}
-          value={password}
+          onChange={(e) => onChange(e, "password")}
+          value={user.password}
           style={styles.loginInputBox}
         />
         {error && <span className={styles.failed}>{error}</span>}

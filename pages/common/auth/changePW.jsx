@@ -1,28 +1,27 @@
 import { useEffect, useState } from "react";
+import router from "next/router";
+import * as cookie from "cookie";
 import styles from "./changePW.module.scss";
 import {
   BottomBlueBtn,
   TopBar,
   BasicInputBox,
-} from "../../../components/common";
-import * as cookie from "cookie";
-import { changePassword } from "../../../core/api/User";
-import router from "next/router";
-import { ModalWithBackground, BasicModal } from "../../../components/common";
+  ModalWithBackground,
+  BasicModal,
+} from "/components/common";
+import { changePassword } from "/core/api/User";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const role = cookie.parse(context.req.headers.cookie).role;
 
   return {
     props: {
       token,
-      role,
     },
   };
 };
 
-const ChangePW = ({ token, role }) => {
+const ChangePW = ({ token }) => {
   const [pw, setPW] = useState({
     newPassword: "",
     newPasswordConfirm: "",
@@ -40,29 +39,43 @@ const ChangePW = ({ token, role }) => {
 
   useEffect(() => {
     if (
-      pw.newPassword == "" ||
-      pw.newPasswordConfirm == "" ||
-      pw.password == ""
+      pw.newPassword === "" ||
+      pw.newPasswordConfirm === "" ||
+      pw.password === ""
     ) {
       setErrMsg("빈칸을 모두 채워주세요.");
     } else if (pw.newPassword.length < 6 || pw.newPassword.length > 14) {
       setErrMsg("비밀번호는 6-14자로 입력해주세요.");
-    } else if (pw.newPassword != pw.newPasswordConfirm) {
+    } else if (pw.newPassword !== pw.newPasswordConfirm) {
       setErrMsg("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-    } else if (pw.newPassword == pw.password) {
+    } else if (pw.newPassword === pw.password) {
       setErrMsg("비밀번호와 새로운 비밀번호는 서로 다르게 설정해주세요.");
     } else {
       setErrMsg("");
     }
   }, [pw]);
 
+  const changePwHandler = async () => {
+    if (errMsg !== "") {
+      setResult({ success: false, error: true, errorMsg: errMsg });
+    } else {
+      const res = await changePassword(token, pw);
+      if (res.status === 200)
+        setResult({ success: true, error: false, errorMsg: "" });
+      else
+        setResult({
+          success: false,
+          error: true,
+          errorMsg: res.data.errorDetails[0],
+        });
+    }
+    setModal(true);
+  };
+
   return (
     <section className={styles.changePW}>
       {modal && (
-        <ModalWithBackground
-          setModal={setModal}
-          prevent={result.success ? true : false}
-        >
+        <ModalWithBackground setModal={setModal} prevent={result.success}>
           <BasicModal
             notice={
               result.success
@@ -105,25 +118,7 @@ const ChangePW = ({ token, role }) => {
           style={styles.pwInputBox}
         />
       </section>
-      <BottomBlueBtn
-        text={"저장"}
-        onClick={async () => {
-          if (errMsg !== "") {
-            setResult({ success: false, error: true, errorMsg: errMsg });
-          } else {
-            const res = await changePassword(token, pw);
-            if (res.status == 200)
-              setResult({ success: true, error: false, errorMsg: "" });
-            else
-              setResult({
-                success: false,
-                error: true,
-                errorMsg: res.data.errorDetails[0],
-              });
-          }
-          setModal(true);
-        }}
-      />
+      <BottomBlueBtn text={"저장"} onClick={changePwHandler} />
     </section>
   );
 };

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import styles from "./addrBlock.module.scss";
 import { BasicSelectBox } from "../../common";
-import { getSiGunGus, getStates, getDongs } from "../../../core/api/Address";
+import { getSiGunGus, getStates, getDongs } from "/core/api/Address";
 
 const AddrBlockEdit = ({ addr, newAddr, setNewAddr }) => {
   useEffect(() => {
@@ -9,7 +9,7 @@ const AddrBlockEdit = ({ addr, newAddr, setNewAddr }) => {
   }, [newAddr.statePick]);
 
   useEffect(() => {
-    if (newAddr.sigunguPick != "")
+    if (newAddr.sigunguPick !== "")
       GetDong(newAddr.statePick, newAddr.sigunguPick);
   }, [newAddr.sigunguPick]);
 
