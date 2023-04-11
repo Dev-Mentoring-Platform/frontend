@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import router from "next/router";
 import Image from "next/image";
 import styles from "./chatPreview.module.scss";
-import Role from "../../common/tag/role";
-import ConvertTime from "../../../utils/common/convertTime";
+import Role from "../tag/role";
 import { IC_PersonBlue } from "../../../icons";
+import ConvertTime from "/utils/common/convertTime";
 
 const ChatPreview = ({ chatData, othersRole }) => {
   const [converted, setConverted] = useState({
@@ -15,17 +15,13 @@ const ChatPreview = ({ chatData, othersRole }) => {
 
   useEffect(() => {
     const sentAt = chatData?.lastMessage?.createdAt;
-    if (sentAt != undefined) {
-      ConvertTime(sentAt, setConverted);
-    }
+    if (sentAt !== undefined) ConvertTime(sentAt, setConverted);
   }, [chatData.lastMessage]);
 
-  const nickname =
-    othersRole == "멘티" ? chatData.menteeNickname : chatData.mentorNickname;
-  const userId =
-    othersRole == "멘티" ? chatData.menteeUserId : chatData.mentorUserId;
-  const userImg =
-    othersRole == "멘티" ? chatData.menteeImage : chatData.mentorImage;
+  const isMentee = othersRole === "멘티";
+  const nickname = isMentee ? chatData.menteeNickname : chatData.mentorNickname;
+  const userId = isMentee ? chatData.menteeUserId : chatData.mentorUserId;
+  const userImg = isMentee ? chatData.menteeImage : chatData.mentorImage;
 
   return (
     <button
@@ -39,10 +35,10 @@ const ChatPreview = ({ chatData, othersRole }) => {
       }
     >
       <div className={styles.profileImg}>
-        {userImg == null ? (
-          <IC_PersonBlue width={56} height={56} className={styles.person} />
-        ) : (
+        {userImg ? (
           <Image src={userImg} width={56} height={56} />
+        ) : (
+          <IC_PersonBlue width={56} height={56} className={styles.person} />
         )}
       </div>
       <div className={styles.mentorChat}>
@@ -61,7 +57,7 @@ const ChatPreview = ({ chatData, othersRole }) => {
         <span className={styles.timeInfo}>
           {converted.sameDay ? converted.time : converted.date}
         </span>
-        {chatData.uncheckedMessageCount != 0 && (
+        {chatData.uncheckedMessageCount !== 0 && (
           <div className={styles.newChatCnt}>
             <span>{chatData.uncheckedMessageCount}</span>
           </div>

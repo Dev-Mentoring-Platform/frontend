@@ -18,11 +18,7 @@ const BasicSelectBox = ({
         className={selectStyles}
       >
         {arr?.map((data, i) => (
-          <option
-            value={data}
-            key={i}
-            selected={value === data ? "selected" : ""}
-          >
+          <option value={data} key={i} defaultValue={data}>
             {data}
           </option>
         ))}

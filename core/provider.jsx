@@ -1,24 +1,12 @@
-import React, {
-  createContext,
-  useEffect,
-  useState,
-  useCallback,
-  useMemo,
-} from "react";
+import React, { createContext, useEffect, useState, useCallback } from "react";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 
 export const sockContext = createContext();
-const SocketProvider = ({
-  children,
-  my,
-  uncheckedCnt,
-  myChatRooms,
-  access,
-}) => {
-  const Sock = new SockJS("https://www.mentoridge.co.kr/ws");
-  // const Sock = new SockJS(process.env.NEXT_PUBLIC_CHAT_URL);
+const SocketProvider = ({ children, my, uncheckedCnt, myChatRooms }) => {
+  const Sock = new SockJS(process.env.NEXT_PUBLIC_CHAT_URL);
   const ws = Stomp.over(Sock);
+  ws.debug = null;
 
   const [alarmContents, setAlarmContents] = useState(undefined);
   const [alarmCnt, setAlarmCnt] = useState(uncheckedCnt);
@@ -38,7 +26,7 @@ const SocketProvider = ({
         });
 
       myChatRooms !== undefined &&
-        myChatRooms?.length != 0 &&
+        myChatRooms?.length !== 0 &&
         Array.isArray(myChatRooms) &&
         myChatRooms?.forEach((data) => {
           ws?.subscribe(`/sub/chat/room/${data?.chatroomId}`, (data2) => {

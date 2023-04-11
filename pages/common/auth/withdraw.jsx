@@ -1,23 +1,20 @@
-import styles from "./withdraw.module.scss";
-import { TopBar, BottomBlueBtn, BasicRadio } from "../../../components/common";
-import router from "next/router";
-import * as cookie from "cookie";
 import { useState } from "react";
-import { resignMembership } from "../../../core/api/User";
+import * as cookie from "cookie";
+import styles from "./withdraw.module.scss";
+import { TopBar, BottomBlueBtn, BasicRadio } from "/components/common";
+import { resignMembership } from "/core/api/User";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const role = cookie.parse(context.req.headers.cookie).role;
 
   return {
     props: {
       token,
-      role,
     },
   };
 };
 
-const WithDraw = ({ token, role }) => {
+const WithDraw = ({ token }) => {
   const [select, setSelect] = useState("");
   const [password, setPassword] = useState("");
 

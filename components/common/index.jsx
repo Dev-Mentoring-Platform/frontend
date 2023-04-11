@@ -17,6 +17,7 @@ import {
 import { BasicModal, ModalWithBackground } from "./modal";
 import { BottomTab, BottomTabElem, TopBar } from "./tab";
 import { canvasPreview, useDebounceEffect } from "./imgCrop";
+import { NameLogo } from "./icons/nameLogo";
 
 export {
   //============ button
@@ -46,4 +47,6 @@ export {
   useDebounceEffect,
   //============ style
   basicBtnStyle,
+  //============ icons
+  NameLogo,
 };
